@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>kirosliforlio – Personal Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Friendly casual font for hero + headings - -->
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050615;
+      --bg-elevated: #0b1020;
+      --bg-soft: #11172a;
+      --card: #11172a;
+      --accent: #7b61ff;
+      --accent-soft: rgba(123, 97, 255, 0.15);
+      --accent-eco: #5bd1a5;
+      --text-main: #f5f5fb;
+      --text-muted: #a2a6c5;
+      --text-soft: #6b7193;
+      --border-subtle: rgba(255,255,255,0.08);
+      --radius-lg: 1.5rem;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.55);
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Work Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b2542 0%, #050615 55%, #02030a 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: calc(var(--radius-lg) - var(--space-2));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    main {
+      padding-inline: var(--space-4);
+      padding-top: 5.5rem;
+      padding-bottom: var(--space-12);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin-inline: auto;
+    }
+
+    /* HEADER */
+
+    .site-header-wrap {
+      position: fixed;
+      top: 0.75rem;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding-inline: var(--space-4);
+      pointer-events: none;
+    }
+
+    .site-header {
+      max-width: var(--max-width);
+      margin-inline: auto;
+      background: rgba(5, 6, 21, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(123, 97, 255, 0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+      padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      pointer-events: auto;
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .nav-left {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 150ms ease-out, color 150ms ease-out, transform 150ms ease-out;
+    }
+
+    .nav-link:hover {
+      background: rgba(123,97,255,0.14);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .nav-link-active {
+      background: rgba(123,97,255,0.28);
+      color: var(--text-main);
+    }
+
+    .site-title {
+      font-family: "Quicksand", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+      padding: 0.25rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: radial-gradient(circle at top left, rgba(91,209,165,0.38), rgba(123,97,255,0.4));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        padding-inline: 0.5rem;
+      }
+
+      .nav-left {
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .nav-left::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-link {
+        padding-inline: 0.7rem;
+      }
+
+      .site-title {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      border-radius: calc(var(--radius-lg) * 1.4);
+      padding: var(--space-8) var(--space-6);
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: var(--space-6);
+      background:
+        radial-gradient(circle at top left, rgba(91,209,165,0.16), transparent 55%),
+        radial-gradient(circle at top right, rgba(123,97,255,0.22), transparent 60%),
+        linear-gradient(135deg, #090e22, #050615);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background-image:
+        linear-gradient(to bottom, rgba(5,6,21,0.1), rgba(5,6,21,0.7)),
+        url("https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1b86fecf764a3138147e83c4c648975fa8e5048c.jpg");
+      background-size: cover;
+      background-position: center;
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-4);
+      max-width: 34rem;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      background: rgba(8,14,40,0.9);
+      border: 1px solid rgba(91,209,165,0.5);
+      color: var(--accent-eco);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .hero-kicker-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-eco);
+      box-shadow: 0 0 10px rgba(91,209,165,0.9);
+    }
+
+    .hero-title {
+      font-family: "Quicksand", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 3.2vw + 1.2rem, 3.6rem);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title span {
+      display: inline-block;
+    }
+
+    .hero-title-highlight {
+      color: var(--accent-eco);
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .hero-subtitle strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .hero-meta-pill {
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(6,10,34,0.9);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-actions {
+      margin-top: var(--space-4);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .btn-main {
+      position: relative;
+      overflow: hidden;
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(123,97,255,0.7);
+      background: radial-gradient(circle at top left, var(--accent), #4b3ec4);
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.7);
+      transform: translateY(0);
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+    }
+
+    .btn-main span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-main::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(123,97,255,0.7), rgba(255,255,255,0.15));
+      transition: transform 240ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .btn-main:hover::before {
+      transform: translateX(0);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 18px 55px rgba(0,0,0,0.9);
+    }
+
+    .btn-main:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+    }
+
+    .btn-ghost {
+      padding: 0.65rem 1.1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(5,7,25,0.8);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: background 150ms ease-out, border-color 150ms ease-out, transform 150ms ease-out;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(13,19,54,0.9);
+      border-color: rgba(123,97,255,0.6);
+      transform: translateY(-1px);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      justify-content: flex-end;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, rgba(11,16,42,0.98), rgba(5,6,21,0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.09);
+      padding: var(--space-4);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-3);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-soft);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-card-text {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      margin-top: 0.2rem;
+    }
+
+    .hero-tag-list {
+      margin-top: var(--space-3);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text-muted);
+    }
+
+    .hero-mini {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .hero-mini-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 1.25rem;
+      background: radial-gradient(circle at top left, rgba(91,209,165,0.5), rgba(123,97,255,0.5));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      font-size: 1.4rem;
+    }
+
+    .hero-mini-text {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .hero-mini-text strong {
+      display: block;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      margin-bottom: 0.1rem;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-6) var(--space-5);
+      }
+      .hero-visual {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding-inline: var(--space-3);
+      }
+      .hero {
+        padding: var(--space-5) var(--space-4);
+      }
+      .hero-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* HOME OVERVIEW */
+
+    .section {
+      margin-top: var(--space-10);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .section-title {
+      font-family: "Quicksand", system-ui, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 26rem;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    @media (max-width: 960px) {
+      .overview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .overview-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card-link {
+      display: block;
+      height: 100%;
+    }
+
+    .overview-card {
+      height: 100%;
+      background: radial-gradient(circle at top, rgba(123,97,255,0.26), rgba(11,15,40,0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.7);
+      transform: translateY(0);
+      transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.8);
+      border-color: rgba(91,209,165,0.65);
+    }
+
+    .overview-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: calc(var(--radius-lg) - var(--space-2));
+      aspect-ratio: 4 / 3;
+      background: #11172a;
+    }
+
+    .overview-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform 200ms ease-out;
+    }
+
+    .overview-card:hover .overview-image-wrap img {
+      transform: scale(1.06);
+    }
+
+    .overview-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .overview-heading {
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+
+    .overview-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    .overview-meta {
+      margin-top: auto;
+      padding-top: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .chip {
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    /* SECTIONS / "PAGES" */
+
+    .page-section {
+      padding-top: var(--space-12);
+      margin-top: var(--space-12);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .page-section h2 {
+      font-family: "Quicksand", system-ui, sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .page-section p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: var(--space-12);
+      border-top-left-radius: 2.5rem;
+      border-top-right-radius: 2.5rem;
+      background: radial-gradient(circle at top, rgba(123,97,255,0.4), #050615);
+      border-top: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 -18px 40px rgba(0,0,0,0.9);
+      padding: var(--space-8) var(--space-4) var(--space-5) var(--space-4);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 2.2fr repeat(3, minmax(0, 1fr));
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+
+    @media (max-width: 960px) {
+      .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      footer {
+        border-top-left-radius: 1.75rem;
+        border-top-right-radius: 1.75rem;
+      }
+      .footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .footer-brand-title {
+      font-family: "Quicksand", system-ui, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .footer-brand-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      max-width: 24rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-item {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .footer-item a {
+      color: inherit;
+    }
+
+    .footer-item a:hover {
+      color: var(--accent-eco);
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .social-icon-link {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(5,7,25,0.9);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(0);
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out, background 150ms ease-out;
+    }
+
+    .social-icon-link img {
+      border-radius: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .social-icon-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.7);
+      border-color: rgba(123,97,255,0.8);
+      background: radial-gradient(circle at top left, rgba(123,97,255,0.6), rgba(5,7,25,0.9));
+    }
+
+    .footer-resume-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(5,7,25,0.9);
+      cursor: pointer;
+      transform: translateY(0);
+      transition: background 150ms ease-out, border-color 150ms ease-out, transform 150ms ease-out;
+    }
+
+    .footer-resume-link:hover {
+      background: rgba(16,22,56,0.95);
+      border-color: rgba(91,209,165,0.7);
+      transform: translateY(-1px);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin-inline: auto;
+      margin-top: var(--space-5);
+      padding-top: var(--space-4);
+      border-top: 1px solid rgba(255,255,255,0.14);
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Work Sans", system-ui, sans-serif;
+    }
+
+    .footer-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 12px rgba(74,222,128,0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="site-header-wrap">
+    <header class="site-header">
+      <nav class="nav-left" aria-label="Main navigation">
+        <a href="#home" class="nav-link nav-link-active">Home</a>
+        <a href="#robotics" class="nav-link">Robotics</a>
+        <a href="#engineering-projects" class="nav-link">Engineering Projects</a>
+        <a href="#outdoors" class="nav-link">Outdoors</a>
+        <a href="#piano-teaching" class="nav-link">Piano Teaching</a>
+      </nav>
+      <div class="nav-right">
+        <div class="site-title">kirosliforlio</div>
+      </div>
+    </header>
+  </div>
+
+  <main id="home">
+    <section class="container hero" aria-label="Welcome">
+      <div class="hero-copy">
+        <div class="hero-kicker">
+          <div class="hero-kicker-dot" aria-hidden="true"></div>
+          <span>Student portfolio · Metro Vancouver</span>
+        </div>
+        <h1 class="hero-title">
+          <span>Hey, I’m Kiros —</span><br />
+          <span class="hero-title-highlight">learning, building, and exploring</span><br />
+          <span>on my way to becoming an engineer.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Right now I’m <strong>teaching piano</strong>, taking <strong>nature photos around Metro Vancouver</strong>, and
+          building small engineering projects while I work toward a future in <strong>aerospace engineering</strong>.
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-pill">Piano teacher · Nature photographer</div>
+          <div class="hero-meta-pill">Robotics & personal projects</div>
+          <div class="hero-meta-pill">Aerospace engineering dreamer</div>
+        </div>
+        <div class="hero-actions">
+          <a href="#overview" class="btn-main">
+            <span>See what I do</span>
+            <span aria-hidden="true">↘</span>
+          </a>
+          <a href="#piano-teaching" class="btn-ghost">
+            <span>Jump to piano teaching</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card">
+          <div>
+            <div class="hero-card-label">Now</div>
+            <div class="hero-card-title">Teaching, making music, and exploring nature.</div>
+            <p class="hero-card-text">
+              I help students grow at the piano, and I spend my free time hiking and capturing quiet moments outdoors.
+            </p>
+            <div class="hero-tag-list">
+              <span class="hero-tag">Piano lessons</span>
+              <span class="hero-tag">Nature photography</span>
+              <span class="hero-tag">Metro Vancouver trails</span>
+            </div>
+          </div>
+          <div>
+            <div class="hero-card-label">Next</div>
+            <div class="hero-card-title">Building personal projects toward aerospace.</div>
+            <p class="hero-card-text">
+              From robotics experiments to engineering sketches, I’m slowly building the skills I’ll need as a future aerospace engineer.
+            </p>
+            <div class="hero-tag-list">
+              <span class="hero-tag">Robotics basics</span>
+              <span class="hero-tag">STEM projects</span>
+              <span class="hero-tag">Aerospace goals</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-mini">
+          <div class="hero-mini-badge">✈️</div>
+          <div class="hero-mini-text">
+            <strong>Eco‑tech mindset</strong>
+            Blending a love for the outdoors with curiosity about engineering, flight, and sustainable technology.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOME OVERVIEW -->
+    <section id="overview" class="container section" aria-label="Overview of pages">
+      <div class="section-header">
+        <h2 class="section-title">Overview</h2>
+        <p class="section-subtitle">
+          A quick peek at the different sides of my life right now — from piano teaching and personal projects to time outside in nature.
+        </p>
+      </div>
+
+      <div class="overview-grid">
+        <!-- Robotics -->
+        <a href="#robotics" class="card-link">
+          <article class="overview-card">
+            <div class="overview-image-wrap">
+              <img
+                src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg"
+                alt="Minimal line drawing of a rocket for aerospace and robotics theme"
+                width="1470"
+                height="980"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <div class="overview-label">Robotics</div>
+              <h3 class="overview-heading">First steps into robotics</h3>
+              <p class="overview-text">
+                Simple builds, sensors, and experiments that help me understand how real-world systems move, react, and fly.
+              </p>
+            </div>
+            <div class="overview-meta">
+              <span class="chip">Learning by tinkering</span>
+              <span>Click to view</span>
+            </div>
+          </article>
+        </a>
+
+        <!-- Engineering Projects -->
+        <a href="#engineering-projects" class="card-link">
+          <article class="overview-card">
+            <div class="overview-image-wrap">
+              <img
+                src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/a3d105bef7c30fc2d7bdfe42d0075b6992247376.jpg"
+                alt="Futuristic aerospace and engineering interface illustration"
+                width="800"
+                height="800"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <div class="overview-label">Engineering Projects</div>
+              <h3 class="overview-heading">Personal builds and ideas</h3>
+              <p class="overview-text">
+                A place for my small engineering projects, code experiments, and early concepts as I aim toward aerospace engineering.
+              </p>
+            </div>
+            <div class="overview-meta">
+              <span class="chip">Project log</span>
+              <span>Click to view</span>
+            </div>
+          </article>
+        </a>
+
+        <!-- Outdoors -->
+        <a href="#outdoors" class="card-link">
+          <article class="overview-card">
+            <div class="overview-image-wrap">
+              <img
+                src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9a99e8ab3dd406ae165e0cad8e0043667290256c.jpg"
+                alt="Hiker looking over a mountain valley landscape"
+                width="2000"
+                height="1500"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <div class="overview-label">Outdoors</div>
+              <h3 class="overview-heading">Nature & photography</h3>
+              <p class="overview-text">
+                Trails, viewpoints, and small details from the forests and mountains around Metro Vancouver, captured through my lens.
+              </p>
+            </div>
+            <div class="overview-meta">
+              <span class="chip">Nature photography</span>
+              <span>Click to view</span>
+            </div>
+          </article>
+        </a>
+
+        <!-- Piano Teaching -->
+        <a href="#piano-teaching" class="card-link">
+          <article class="overview-card">
+            <div class="overview-image-wrap">
+              <img
+                src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/9ca137c8472ae9c84494b0e7c1615ef426f90d10.jpg"
+                alt="Piano teacher helping a young student at the keyboard"
+                width="940"
+                height="627"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <div class="overview-label">Piano Teaching</div>
+              <h3 class="overview-heading">Sharing music with others</h3>
+              <p class="overview-text">
+                How I structure lessons, support my students, and what I’m learning by teaching music one student at a time.
+              </p>
+            </div>
+            <div class="overview-meta">
+              <span class="chip">Current focus</span>
+              <span>Click to view</span>
+            </div>
+          </article>
+        </a>
+      </div>
+    </section>
+
+    <!-- ROBOTICS PAGE SECTION -->
+    <section id="robotics" class="container page-section" aria-label="Robotics page">
+      <h2>Robotics</h2>
+      <p>
+        This page will showcase how I’m starting in robotics — from basic circuits and sensors to small moving builds that connect what I
+        learn in class to the real world. (More coming soon.)
+      </p>
+    </section>
+
+    <!-- ENGINEERING PROJECTS PAGE SECTION -->
+    <section id="engineering-projects" class="container page-section" aria-label="Engineering projects page">
+      <h2>Engineering Projects</h2>
+      <p>
+        Here I’ll collect my personal engineering projects as I work toward becoming an aerospace engineer — prototypes, sketches, notes,
+        and reflections on what each project taught me. (More coming soon.)
+      </p>
+    </section>
+
+    <!-- OUTDOORS PAGE SECTION -->
+    <section id="outdoors" class="container page-section" aria-label="Outdoors page">
+      <h2>Outdoors</h2>
+      <p>
+        This page will be a simple gallery and diary from the outdoors — nature walks, hikes, and photo sets from around Metro Vancouver
+        that keep me grounded and inspired. (More coming soon.)
+      </p>
+    </section>
+
+    <!-- PIANO TEACHING PAGE SECTION -->
+    <section id="piano-teaching" class="container page-section" aria-label="Piano teaching page">
+      <h2>Piano Teaching</h2>
+      <p>
+        Here I’ll share how I teach piano, what a lesson with me feels like, and the small wins I see in my students each week. (More
+        coming soon.)
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-title">kirosliforlio</div>
+        <p class="footer-brand-text">
+          A small corner of the internet where I collect my piano teaching, nature photography, personal projects, and my journey toward
+          aerospace engineering.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Location</div>
+        <div class="footer-item">Metro Vancouver, BC, Canada</div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-item">
+          <a href="mailto:kiros1134@gmail.com">kiros1134@gmail.com</a>
+        </div>
+        <div class="footer-item">
+          <a href="tel:+17789600424">+1&nbsp;778&nbsp;960&nbsp;0424</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Links</div>
+        <div class="footer-item">
+          <div class="footer-socials">
+            <a
+              class="social-icon-link"
+              href="https://www.linkedin.com/in/kiros-li-8b83b0270/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <img
+                src="https://cdn.simpleicons.org/linkedin/ffffff"
+                alt="LinkedIn logo"
+                width="16"
+                height="16"
+                loading="lazy"
+              />
+            </a>
+            <a
+              class="social-icon-link"
+              href="https://www.instagram.com/kiros.li24/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <img
+                src="https://cdn.simpleicons.org/instagram/ffffff"
+                alt="Instagram logo"
+                width="16"
+                height="16"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+        <a href="CLC 12 2.8 KirosResume-1.pdf" class="footer-resume-link" target="_blank" rel="noopener noreferrer">
+          <span>View my resume</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-status">
+        <span class="footer-status-dot" aria-hidden="true"></span>
+        <span>System operational · Portfolio online</span>
+      </div>
+      <div>© <span id="year-span"></span> kirosliforlio</div>
+    </div>
+  </footer>
+
+  <script>
+    // Update footer year
+    document.getElementById("year-span").textContent = new Date().getFullYear();
+
+    // Simple active state for nav links on click (client-side only)
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.forEach((l) => l.classList.remove("nav-link-active"));
+        link.classList.add("nav-link-active");
+      });
+    });
+  </script>
+</body>
+</html>
