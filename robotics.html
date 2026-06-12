@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kirosliforlio | Robotics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-main:#111827; --text-muted:#6b7280; --text-soft:#9ca3af; --accent:#16a34a; --border:#e5e7eb;
+      --panel:rgba(255,255,255,.78); --panel-strong:rgba(255,255,255,.9); --shadow:0 18px 60px rgba(15,23,42,.12);
+      --max-width:1120px; --radius:1rem; --radius-pill:999px; --space-3:.75rem; --space-4:1rem; --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem; --space-16:4rem;
+      --transition-fast:180ms cubic-bezier(.25,.46,.45,.94); --transition-med:280ms cubic-bezier(.25,.46,.45,.94);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{min-height:100vh;font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text-main);background:linear-gradient(180deg,#f7fafc 0%,#f8fafb 42%,#f3f4f6 100%);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none} img{display:block;max-width:100%;height:auto} button,summary{font:inherit}
+    .site-header-wrap{position:fixed;inset-inline:0;top:.75rem;z-index:40;display:flex;justify-content:center;pointer-events:none;transition:transform 220ms ease-out,opacity 220ms ease-out}.site-header-wrap.header-hidden{transform:translateY(-120%);opacity:0}
+    .site-header{pointer-events:auto;width:min(calc(100% - 1.5rem),var(--max-width));padding:.6rem 1rem;border-radius:.9rem;background:rgba(255,255,255,.96);border:1px solid rgba(226,232,240,.95);box-shadow:0 14px 50px rgba(15,23,42,.08);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+    .nav-left,.nav-right{display:flex;align-items:center;gap:var(--space-3)} .nav-left{font-size:.88rem;color:var(--text-soft);flex-wrap:wrap}
+    .nav-link{position:relative;padding:.35rem .85rem;border-radius:var(--radius-pill);transition:background var(--transition-fast),color var(--transition-fast),transform var(--transition-fast)}
+    .nav-link::after{content:"";position:absolute;left:22%;right:22%;bottom:.14rem;height:2px;border-radius:999px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform var(--transition-fast)}
+    .nav-link:hover,.nav-link-active{color:var(--text-main);background:rgba(22,163,74,.04);transform:translateY(-1px)} .nav-link:hover::after,.nav-link-active::after{transform:scaleX(1)}
+    .site-title{font-weight:600;font-size:.9rem;letter-spacing:.16em;text-transform:uppercase;padding:.25rem .8rem;border-radius:.6rem;background:linear-gradient(90deg,#bbf7d0,#dcfce7);color:#14532d;border:1px solid rgba(187,247,208,.9)}
+    .hero{position:relative;min-height:90vh;display:flex;align-items:end;padding:7rem 0 3rem;overflow:hidden;background:radial-gradient(circle at top left,#fbfdfb 0%,#f4faf5 45%,#f8fafb 100%)}
+    .hero-bg{position:absolute;inset:0;background-image:linear-gradient(to top, rgba(15,23,42,.55), rgba(15,23,42,.1)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.03)}
+    .hero-inner{position:relative;z-index:1;width:min(calc(100% - 2rem),var(--max-width));margin:0 auto;color:#fff}.hero-kicker{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.76);margin-bottom:1rem}.hero-title{font-size:clamp(3rem,6vw + 1rem,6rem);line-height:.94;letter-spacing:-.05em;max-width:9ch}.hero-sub{margin-top:1.1rem;font-size:1rem;color:rgba(255,255,255,.85);max-width:34rem}
+    .page-shell{max-width:var(--max-width);margin-inline:auto;padding:var(--space-12) var(--space-4) var(--space-16)}
+    .season-stack{display:grid;gap:var(--space-6)}
+    .season-panel{border-radius:1.2rem;background:var(--panel);border:1px solid rgba(255,255,255,.72);backdrop-filter:blur(20px);box-shadow:var(--shadow);overflow:hidden}
+    .season-toggle{width:100%;border:none;background:transparent;text-align:left;padding:var(--space-6);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);list-style:none;transition:background var(--transition-fast)}
+    .season-toggle::-webkit-details-marker{display:none}.season-toggle:hover{background:rgba(255,255,255,.18)}
+    .season-meta{display:flex;flex-wrap:wrap;gap:.65rem;margin-bottom:var(--space-3)}
+    .season-tag{display:inline-flex;align-items:center;padding:.42rem .8rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.7);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#4b5563}
+    .season-title{font-size:clamp(1.4rem,1.2vw + 1rem,2rem);line-height:1.06;margin-bottom:.35rem}.season-sub{font-size:.96rem;color:var(--text-muted)}
+    .season-icon{flex:0 0 auto;width:42px;height:42px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.7);color:#166534;transition:transform var(--transition-med),background var(--transition-fast)}
+    .season-panel[open] .season-icon{transform:rotate(45deg);background:rgba(187,247,208,.9)}
+    .season-content{padding:0 var(--space-6) var(--space-6);display:grid;gap:var(--space-5)}
+    .season-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:var(--space-5);align-items:start}
+    .season-side{display:grid;gap:var(--space-4)}
+    .note-card{padding:var(--space-4);border-radius:.85rem;background:var(--panel-strong);border:1px solid rgba(255,255,255,.72);color:var(--text-muted);font-size:.95rem}
+    .quick-links{display:grid;gap:.55rem}.quick-links a{padding:.7rem .85rem;border-radius:.85rem;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.75);font-size:.86rem;color:#374151;transition:transform var(--transition-fast),background var(--transition-fast)}.quick-links a:hover{transform:translateY(-1px);background:#ecfdf3}
+    .journal{display:grid;gap:var(--space-4)}
+    .journal-top{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;align-items:center}
+    .journal-title{font-size:1.25rem;font-weight:600}.journal-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1rem;border-radius:999px;border:1px solid #bbf7d0;background:#ecfdf3;color:#166534;font-size:.84rem;font-weight:600;transition:transform var(--transition-fast),box-shadow var(--transition-fast)}.journal-btn:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(22,163,74,.12)}
+    .journal-post{padding:var(--space-5);border-radius:1rem;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.82);box-shadow:0 10px 30px rgba(15,23,42,.05)}
+    .post-header{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;align-items:center;margin-bottom:1rem}.post-kicker{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-soft)}.post-title{font-size:1.2rem;font-weight:600}.post-date{font-size:.8rem;color:var(--text-soft)}
+    .post-body{line-height:1.72;color:var(--text-muted);font-size:.97rem}.post-body p+p{margin-top:.9rem}
+    .coming-soon{padding:var(--space-6);border-radius:1rem;background:rgba(255,255,255,.62);border:1px dashed rgba(22,163,74,.35);color:var(--text-muted)}.coming-title{font-size:1rem;font-weight:500;margin-bottom:.45rem;color:#166534}
+    footer{background:#fff;border-top:1px solid var(--border);margin-top:var(--space-12);padding:var(--space-8) var(--space-4) var(--space-5)}
+    .footer-inner{max-width:var(--max-width);margin-inline:auto;display:grid;grid-template-columns:2.1fr repeat(3,minmax(0,1fr));gap:var(--space-6);align-items:flex-start}.footer-brand-title{font-size:1.05rem;font-weight:600;margin-bottom:.3rem}.footer-brand-text,.footer-item{font-size:.84rem;color:var(--text-muted)}.footer-col-title{font-size:.88rem;font-weight:600;margin-bottom:.6rem}.footer-item{margin-bottom:.35rem}.footer-socials{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem}.social-icon-link{width:28px;height:28px;border-radius:.5rem;background:#f3f4f6;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;transition:transform var(--transition-fast),box-shadow var(--transition-fast),border-color var(--transition-fast),background var(--transition-fast)}.social-icon-link img{width:18px;height:18px}.social-icon-link:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(15,23,42,.12);border-color:#bbf7d0;background:#ecfdf3}.footer-resume-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;font-size:.8rem;padding:.5rem .9rem;border-radius:999px;border:1px solid var(--border);background:#f9fafb;transition:background var(--transition-fast),border-color var(--transition-fast),transform var(--transition-fast)}.footer-resume-link:hover{background:#ecfdf3;border-color:#bbf7d0;transform:translateY(-1px)}.footer-bottom{max-width:var(--max-width);margin-inline:auto;margin-top:var(--space-5);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.74rem;color:var(--text-soft);display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;align-items:center}.footer-status{display:inline-flex;align-items:center;gap:.4rem}.footer-status-dot{width:8px;height:8px;border-radius:999px;background:#16a34a}
+    @media (max-width: 900px){.season-grid{grid-template-columns:minmax(0,1fr)}.footer-inner{grid-template-columns:1fr 1fr}}
+    @media (max-width: 720px){.site-header{padding-inline:.6rem}.nav-left{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.nav-left::-webkit-scrollbar{display:none}.nav-link{padding-inline:.7rem}.site-title{display:none}.hero-title{max-width:10ch}.footer-inner{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="site-header-wrap">
+    <header class="site-header">
+      <nav class="nav-left" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#vex" class="nav-link nav-link-active">VEX V5 Robotics</a>
+        <a href="index.html#engineering-projects" class="nav-link">Engineering Projects</a>
+        <a href="outdoors.html" class="nav-link">Outdoors</a>
+        <a href="index.html#piano-teaching" class="nav-link">Piano Teaching</a>
+      </nav>
+      <div class="nav-right"><div class="site-title">kirosliforlio</div></div>
+    </header>
+  </div>
+  <section class="hero" aria-label="Robotics hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-kicker">Robotics archive</div>
+      <h1 class="hero-title">Build logs, match notes, and lessons learned.</h1>
+      <p class="hero-sub">Two VEX seasons, one structured archive, and room for detailed journal entries.</p>
+    </div>
+  </section>
+  <main class="page-shell">
+    <section class="season-stack" aria-label="Robotics seasons">
+      <details class="season-panel" open>
+        <summary class="season-toggle" style="padding:0;">
+          <div class="season-cover" style="position:relative;min-height:72vh;width:100%;display:flex;align-items:end;padding:3rem;overflow:hidden;border-radius:1.2rem;">
+            <div class="season-cover-bg" style="position:absolute;inset:0;background-image:linear-gradient(to top, rgba(15,23,42,.62), rgba(15,23,42,.10)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;"></div>
+            <div style="position:relative;z-index:1;max-width:44rem;color:#fff;">
+              <div class="season-meta"><span class="season-tag">2025-2026</span><span class="season-tag">VEX V5</span><span class="season-tag">Push Back</span></div>
+              <h2 class="season-title" style="font-size:clamp(2.4rem,4.5vw + 1rem,5rem);line-height:.95;max-width:10ch;">Push Back Season</h2>
+              <p class="season-sub" style="max-width:34rem;color:rgba(255,255,255,.86);margin-top:1rem;">Tournament summaries, design notes, and the season-long engineering journal.</p>
+              <div style="margin-top:1.7rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;">
+                <a class="journal-btn" href="#">Open engineering journal →</a>
+                <span class="season-icon" aria-hidden="true" style="background:rgba(255,255,255,.84);">+</span>
+              </div>
+            </div>
+          </div>
+        </summary>
+        <div class="season-content">
+          <div class="season-grid">
+            <div>
+              <div class="journal">
+                <article class="journal-post" id="push-early-season">
+                  <div class="post-header"><div><div class="post-kicker">Section 01</div><div class="post-title">Early season design / ideas</div></div><div class="post-date">Placeholder</div></div>
+                  <div class="post-body"><p>Use this section for the first concepts, drivetrain choices, intake ideas, and any sketches or tests that shaped the final Push Back robot.</p></div>
+                </article>
+                <article class="journal-post" id="push-salish"><div class="post-header"><div><div class="post-kicker">Section 02</div><div class="post-title">Salish Secondary Tournament</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Summarize how the robot performed, what changed after the event, and what you learned from the match environment.</p></div></article>
+                <article class="journal-post" id="push-heritage"><div class="post-header"><div><div class="post-kicker">Section 03</div><div class="post-title">Heritage Woods Secondary Tournament</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Record scoring trends, driver notes, and any repairs or calibration that were needed after this tournament.</p></div></article>
+                <article class="journal-post" id="push-southridge"><div class="post-header"><div><div class="post-kicker">Section 04</div><div class="post-title">Southridge Tournament</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Leave space for match results, autonomous changes, alliance notes, and any key turning points in the season.</p></div></article>
+                <article class="journal-post" id="push-wpra"><div class="post-header"><div><div class="post-kicker">Section 05</div><div class="post-title">WPRA Scrimmage</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Use this for scrimmage takeaways, subsystem testing, and the smaller observations that help later tournaments.</p></div></article>
+                <article class="journal-post" id="push-surrey-christian"><div class="post-header"><div><div class="post-kicker">Section 06</div><div class="post-title">Surrey Christian Secondary Tournament</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Write about consistency, ranking performance, driver confidence, and any strategy adjustments.</p></div></article>
+                <article class="journal-post" id="push-provincials"><div class="post-header"><div><div class="post-kicker">Section 07</div><div class="post-title">Lower Mainland Regional / Provincials</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Summarize the highest-level competition, robot reliability, and what the season looked like at its peak.</p></div></article>
+                <article class="journal-post" id="push-conclusion"><div class="post-header"><div><div class="post-kicker">Section 08</div><div class="post-title">End of season conclusion / thoughts</div></div><div class="post-date">Placeholder</div></div><div class="post-body"><p>Use this final entry for reflection, improvements for next year, and a short overall season conclusion.</p></div></article>
+              </div>
+            </div>
+            <div class="season-side">
+              <div class="note-card">Use the links above to jump to each section on desktop.</div>
+              <div class="note-card">This sidebar can stay for seasonal notes, reminders, or highlights.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="season-panel">
+        <summary class="season-toggle" style="padding:0;">
+          <div class="season-cover" style="position:relative;min-height:72vh;width:100%;display:flex;align-items:end;padding:3rem;overflow:hidden;border-radius:1.2rem;">
+            <div class="season-cover-bg" style="position:absolute;inset:0;background-image:linear-gradient(to top, rgba(15,23,42,.62), rgba(15,23,42,.10)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;"></div>
+            <div style="position:relative;z-index:1;max-width:44rem;color:#fff;">
+              <div class="season-meta"><span class="season-tag">2026-2027</span><span class="season-tag">VEX V5</span><span class="season-tag">Override</span></div>
+              <h2 class="season-title" style="font-size:clamp(2.4rem,4.5vw + 1rem,5rem);line-height:.95;max-width:10ch;">Override Season</h2>
+              <p class="season-sub" style="max-width:34rem;color:rgba(255,255,255,.86);margin-top:1rem;">Placeholder archive for the next season, ready when the build begins.</p>
+              <div style="margin-top:1.7rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;">
+                <a class="journal-btn" href="#">Open engineering journal →</a>
+                <span class="season-icon" aria-hidden="true" style="background:rgba(255,255,255,.84);">+</span>
+              </div>
+            </div>
+          </div>
+        </summary>
+        <div class="season-content">
+          <div class="season-grid">
+            <div class="coming-soon">
+              <div class="coming-title">Coming soon!</div>
+              <p>This section will hold the Override season landing page, journal link, and future tournament summaries once the season starts.</p>
+            </div>
+            <div class="season-side">
+              <div class="note-card">This is intentionally a placeholder for now.</div>
+              <div class="note-card">You can keep the same structure so the page expands cleanly later.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-brand-title">kirosliforlio</div><p class="footer-brand-text">A minimal home for my piano teaching, robotics, outdoors, and projects.</p></div>
+      <div><div class="footer-col-title">Location</div><div class="footer-item">Metro Vancouver, BC, Canada</div></div>
+      <div><div class="footer-col-title">Contact</div><div class="footer-item"><a href="mailto:kiros1134@gmail.com">kiros1134@gmail.com</a></div><div class="footer-item"><a href="tel:+17789600424">778 960 0424</a></div></div>
+      <div><div class="footer-col-title">Links</div><div class="footer-socials"><a class="social-icon-link" href="https://www.linkedin.com/in/kiros-li-8b83b0270" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" loading="lazy"></a><a class="social-icon-link" href="https://www.instagram.com/kiros.li24" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" loading="lazy"></a></div><a href="resume.pdf" class="footer-resume-link" target="_blank" rel="noopener noreferrer"><span>View my resume</span><span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="footer-bottom"><div class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span><span>System operational · Robotics archive online</span></div><span id="year-span"></span> kirosliforlio</div>
+  </footer>
+  <script>
+    document.getElementById('year-span').textContent = new Date().getFullYear();
+    const headerWrap = document.querySelector('.site-header-wrap');
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => { const current = window.scrollY; if (!headerWrap) return; const scrollingDown = current > lastScrollY; const scrolledEnough = current > 80; if (scrollingDown && scrolledEnough) headerWrap.classList.add('header-hidden'); else if (!scrollingDown) headerWrap.classList.remove('header-hidden'); lastScrollY = current; });
+    document.querySelectorAll('.season-panel').forEach(panel => panel.addEventListener('toggle', () => { if (panel.open) document.querySelectorAll('.season-panel').forEach(other => { if (other !== panel) other.open = false; }); }));
+  </script>
+</body>
+</html>
