@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>kirosliforlio – Outdoors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --text-soft: #9ca3af;
+      --accent: #16a34a;
+      --border-subtle: rgba(255,255,255,0.42);
+      --panel-bg: rgba(255,255,255,0.54);
+      --panel-strong: rgba(255,255,255,0.78);
+      --radius-lg: 1rem;
+      --radius-md: 0.85rem;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.12);
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --max-width: 1120px;
+      --transition-fast: 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-med: 280ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main); background: linear-gradient(90deg, #edf8f0 0%, #f3f7fb 48%, #f7f4ef 100%); -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button, summary { font: inherit; }
+    .site-header-wrap {
+      position: fixed; inset-inline: 0; top: 0.75rem; z-index: 40; display: flex; justify-content: center; pointer-events: none;
+      transition: transform 220ms ease-out, opacity 220ms ease-out;
+    }
+    .site-header-wrap.header-hidden { transform: translateY(-120%); opacity: 0; pointer-events: none; }
+    .site-header {
+      pointer-events: auto; width: min(100% - 1.5rem, var(--max-width)); padding: 0.6rem 1rem; border-radius: 0.9rem;
+      background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 14px 50px rgba(15,23,42,0.08);
+      backdrop-filter: blur(18px); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+    }
+    .nav-left,.nav-right { display: flex; align-items: center; gap: var(--space-3); }
+    .nav-left { font-size: 0.88rem; color: var(--text-soft); flex-wrap: wrap; }
+    .nav-link {
+      position: relative; padding: 0.35rem 0.85rem; border-radius: var(--radius-pill); cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+    .nav-link::after {
+      content: ""; position: absolute; left: 22%; right: 22%; bottom: 0.14rem; height: 2px; border-radius: 999px;
+      background: var(--accent); transform: scaleX(0); transform-origin: center; transition: transform var(--transition-fast);
+    }
+    .nav-link:hover,.nav-link-active { color: var(--text-main); background: rgba(22,163,74,0.04); transform: translateY(-1px); }
+    .nav-link:hover::after,.nav-link-active::after { transform: scaleX(1); }
+    .site-title {
+      font-weight: 600; font-size: 0.9rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.25rem 0.8rem;
+      border-radius: 0.6rem; background: linear-gradient(90deg, #bbf7d0, #dcfce7); color: #14532d; border: 1px solid rgba(187,247,208,0.9);
+    }
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: end;
+      padding: 7rem 0 3rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to top, rgba(15,23,42,0.72), rgba(15,23,42,0.12)), url('images/IMG_0730.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.02);
+    }
+    .hero-inner { position: relative; z-index: 1; width: min(100% - 2rem, var(--max-width)); margin: 0 auto; color: white; }
+    .hero-kicker { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.76); margin-bottom: 1rem; }
+    .hero-title { font-size: clamp(3rem, 6vw + 1rem, 6rem); line-height: 0.94; letter-spacing: -0.05em; max-width: 8ch; }
+    .hero-sub { margin-top: 1.15rem; font-size: 1rem; color: rgba(255,255,255,0.84); max-width: 34rem; }
+    .page-shell { max-width: var(--max-width); margin-inline: auto; padding: var(--space-12) var(--space-4) var(--space-16); }
+    .trip-stack { display: grid; gap: var(--space-6); }
+    .trip-panel {
+      border-radius: 1.2rem; background: var(--panel-bg); border: 1px solid var(--border-subtle); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-soft); overflow: hidden;
+    }
+    .trip-toggle {
+      width: 100%; border: none; background: transparent; text-align: left; padding: var(--space-6); cursor: pointer; display: flex;
+      align-items: center; justify-content: space-between; gap: var(--space-5); list-style: none; transition: background var(--transition-fast);
+    }
+    .trip-toggle::-webkit-details-marker { display: none; }
+    .trip-toggle:hover { background: rgba(255,255,255,0.18); }
+    .trip-meta { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: var(--space-3); }
+    .trip-tag {
+      display: inline-flex; align-items: center; padding: 0.42rem 0.8rem; border-radius: var(--radius-pill); background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.7); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #4b5563;
+    }
+    .trip-title { font-size: clamp(1.35rem, 1.2vw + 1rem, 2rem); line-height: 1.06; margin-bottom: 0.35rem; }
+    .trip-sub { font-size: 0.96rem; color: var(--text-muted); }
+    .trip-icon {
+      flex: 0 0 auto; width: 42px; height: 42px; border-radius: 999px; display: grid; place-items: center; background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.7); color: #166534; transition: transform var(--transition-med), background var(--transition-fast);
+    }
+    .trip-panel[open] .trip-icon { transform: rotate(45deg); background: rgba(187,247,208,0.9); }
+    .trip-content { padding: 0 var(--space-6) var(--space-6); display: grid; gap: var(--space-5); }
+    .trip-grid { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(260px,0.65fr); gap: var(--space-5); align-items: start; }
+    .trip-side-stack { display: grid; gap: var(--space-4); }
+    .trip-note-card {
+      padding: var(--space-4); border-radius: var(--radius-md); background: var(--panel-strong); border: 1px solid rgba(255,255,255,0.72); color: var(--text-muted); font-size: 0.95rem;
+    }
+    .carousel { position: relative; overflow: hidden; border-radius: 1rem; background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.7); }
+    .carousel-track { display: flex; transition: transform 340ms cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
+    .carousel-slide {
+      min-width: 100%; aspect-ratio: 16/9; position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(203,213,225,0.28));
+      display: grid; place-items: end start; overflow: hidden;
+    }
+    .carousel-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(17,24,39,0.42); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .slide-caption {
+      position: absolute; left: 1rem; bottom: 1rem; padding: 0.5rem 0.8rem; border-radius: 999px; background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(255,255,255,0.8); color: #374151; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; backdrop-filter: blur(10px);
+    }
+    .carousel-controls { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+    .carousel-buttons { display: flex; gap: 0.6rem; }
+    .carousel-btn {
+      width: 42px; height: 42px; border: none; border-radius: 999px; background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.85);
+      color: #166534; cursor: pointer; transition: transform var(--transition-fast), background var(--transition-fast);
+    }
+    .carousel-btn:hover { transform: translateY(-1px); background: rgba(220,252,231,0.95); }
+    .carousel-index { font-size: 0.84rem; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .summary-card {
+      padding: var(--space-5); border-radius: 1rem; background: rgba(255,255,255,0.84); border: 1px solid rgba(255,255,255,0.82); color: var(--text-muted); max-width: 62ch;
+    }
+    .summary-label { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.8rem; }
+    .summary-text { line-height: 1.72; font-size: 0.98rem; }
+    .coming-soon { padding: var(--space-6); border-radius: 1rem; background: rgba(255,255,255,0.62); border: 1px dashed rgba(22,163,74,0.35); color: var(--text-muted); }
+    .coming-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.45rem; color: #166534; }
+    @media (max-width: 900px) {
+      .trip-grid { grid-template-columns: minmax(0,1fr); }
+      .site-header { padding-inline: 0.6rem; }
+      .nav-left { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+      .nav-left::-webkit-scrollbar { display: none; }
+      .site-title { display: none; }
+      .hero-title { max-width: 10ch; }
+    }
+    footer {
+      background: white; border-top: 1px solid rgba(229,231,235,0.8); margin-top: var(--space-12); padding: var(--space-8) var(--space-4) var(--space-5);
+    }
+    .footer-inner { max-width: var(--max-width); margin-inline: auto; display: grid; grid-template-columns: 2.1fr repeat(3,minmax(0,1fr)); gap: var(--space-6); align-items: flex-start; }
+    .footer-brand-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .footer-brand-text,.footer-item { font-size: 0.84rem; color: var(--text-muted); }
+    .footer-col-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .footer-item { margin-bottom: 0.35rem; }
+    .footer-bottom { max-width: var(--max-width); margin-inline: auto; margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid rgba(229,231,235,0.8); font-size: 0.74rem; color: var(--text-soft); display: flex; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+    .footer-status { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .footer-status-dot { width: 8px; height: 8px; border-radius: 999px; background: #16a34a; }
+  </style>
+</head>
+<body>
+  <div class="site-header-wrap"><header class="site-header"><nav class="nav-left" aria-label="Main navigation"><a href="index.html" class="nav-link">Home</a><a href="robotics.html" class="nav-link">VEX V5 Robotics</a><a href="engineering.html" class="nav-link">Engineering Projects</a><a href="outdoors.html" class="nav-link nav-link-active">Outdoors</a><a href="piano.html" class="nav-link">Piano Teaching</a></nav><div class="nav-right"><div class="site-title">kirosliforlio</div></div></header></div>
+</div>
+    </header>
+  </div>
+
+<section class="hero" aria-label="Outdoors hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">Outdoors · alpine archive</div>
+    <h1 class="hero-title">Trips, ridges, and quiet camps.</h1>
+    <p class="hero-sub">
+      A growing log of climbs and mountain days, starting with Mt Wedge and Mt Shuksan.
+    </p>
+  </div>
+</section>
+
+  <main class="page-shell">
+    <section class="trip-stack" aria-label="Trips">
+      <details class="trip-panel" open>
+        <summary class="trip-toggle">
+          <div>
+            <div class="trip-meta"><span class="trip-tag">Trip 01</span><span class="trip-tag">Garibaldi</span><span class="trip-tag">NE Arete</span></div>
+            <h2 class="trip-title">Mt Wedge</h2>
+            <p class="trip-sub">Base layout for a climb entry, with room for images, route notes, and a short recap.</p>
+          </div>
+          <div class="trip-icon" aria-hidden="true">+</div>
+        </summary>
+        <div class="trip-content">
+          <div class="trip-grid">
+            <div>
+              <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 01</div><div class="slide-caption">Approach</div></div>
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 02</div><div class="slide-caption">Arete</div></div>
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 03</div><div class="slide-caption">Summit</div></div>
+                </div>
+              </div>
+              <div class="carousel-controls"><div class="carousel-index" data-carousel-index>01 / 03</div><div class="carousel-buttons"><button class="carousel-btn" type="button" data-carousel-prev aria-label="Previous slide">←</button><button class="carousel-btn" type="button" data-carousel-next aria-label="Next slide">→</button></div></div>
+            </div>
+            <div class="trip-side-stack"><div class="trip-note-card">Region: Garibaldi.</div><div class="trip-note-card">Route: NE Arete.</div><div class="trip-note-card">Short notes can go here later.</div></div>
+          </div>
+          <div class="summary-card"><div class="summary-label">Trip summary</div><p class="summary-text">This is a calm place for a longer write-up without making the page feel dense. You can use one soft text block per trip for route notes, weather, timing, or any short story from the day.</p></div>
+        </div>
+      </details>
+
+      <details class="trip-panel">
+        <summary class="trip-toggle">
+          <div>
+            <div class="trip-meta"><span class="trip-tag">Trip 02</span><span class="trip-tag">North Cascades</span><span class="trip-tag">Sulphide Glacier</span></div>
+            <h2 class="trip-title">Mt Shuksan</h2>
+            <p class="trip-sub">Same structure, ready for a glacier trip entry with photos and a compact trip summary.</p>
+          </div>
+          <div class="trip-icon" aria-hidden="true">+</div>
+        </summary>
+        <div class="trip-content">
+          <div class="trip-grid">
+            <div>
+              <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 01</div><div class="slide-caption">Camp</div></div>
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 02</div><div class="slide-caption">Glacier</div></div>
+                  <div class="carousel-slide"><div class="carousel-placeholder">Add photo 03</div><div class="slide-caption">Summit ridge</div></div>
+                </div>
+              </div>
+              <div class="carousel-controls"><div class="carousel-index" data-carousel-index>01 / 03</div><div class="carousel-buttons"><button class="carousel-btn" type="button" data-carousel-prev aria-label="Previous slide">←</button><button class="carousel-btn" type="button" data-carousel-next aria-label="Next slide">→</button></div></div>
+            </div>
+            <div class="trip-side-stack"><div class="trip-note-card">Region: North Cascades.</div><div class="trip-note-card">Route: Sulphide Glacier.</div><div class="trip-note-card">Leave the full trip write-up for later.</div></div>
+          </div>
+          <div class="summary-card"><div class="summary-label">Trip summary</div><p class="summary-text">The minimalist way to handle more writing is this single soft card below the images. It keeps the page structured, gives the text room to breathe, and avoids turning the trip entry into a wall of paragraphs.</p></div>
+        </div>
+      </details>
+
+      <details class="trip-panel">
+        <summary class="trip-toggle">
+          <div>
+            <div class="trip-meta"><span class="trip-tag">Trip 03</span><span class="trip-tag">North Cascades</span><span class="trip-tag">Placeholder</span></div>
+            <h2 class="trip-title">Mt Baker</h2>
+            <p class="trip-sub">A placeholder entry so the page structure is ready when you add the next trip.</p>
+          </div>
+          <div class="trip-icon" aria-hidden="true">+</div>
+        </summary>
+        <div class="trip-content"><div class="coming-soon"><div class="coming-title">Coming soon!</div><p>This section is reserved for Mt Baker photos, route details, and a short trip summary.</p></div></div>
+      </details>
+    </section>
+  </main>
+
+  <footer><div class="footer-inner"><div><div class="footer-brand-title">kirosliforlio</div><p class="footer-brand-text">A minimal home for my piano teaching, robotics, outdoors, and projects.</p></div><div><div class="footer-col-title">Location</div><div class="footer-item">Metro Vancouver, BC, Canada</div></div><div><div class="footer-col-title">Contact</div><div class="footer-item"><a href="mailto:kiros1134@gmail.com">kiros1134@gmail.com</a></div><div class="footer-item"><a href="tel:+17789600424">778 960 0424</a></div></div><div><div class="footer-col-title">Links</div><div class="footer-socials"><a class="social-icon-link" href="https://www.linkedin.com/in/kiros-li-8b83b0270" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" loading="lazy"></a><a class="social-icon-link" href="https://www.instagram.com/kiros.li24" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" loading="lazy"></a></div><a href="resume.pdf" class="footer-resume-link" target="_blank" rel="noopener noreferrer"><span>View my resume</span><span aria-hidden="true">→</span></a></div></div><div class="footer-bottom"><div class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span><span>System operational · Portfolio online</span></div><span id="year-span"></span> kirosliforlio</div></footer>
+
+  <script>
+    document.getElementById("year-span").textContent = new Date().getFullYear();
+    const headerWrap = document.querySelector(".site-header-wrap");
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+      const current = window.scrollY;
+      if (!headerWrap) return;
+      const scrollingDown = current > lastScrollY;
+      const scrolledEnough = current > 80;
+      if (scrollingDown && scrolledEnough) headerWrap.classList.add("header-hidden");
+      else if (!scrollingDown) headerWrap.classList.remove("header-hidden");
+      lastScrollY = current;
+    });
+    document.querySelectorAll('.trip-panel').forEach((panel) => {
+      panel.addEventListener('toggle', () => {
+        if (panel.open) {
+          document.querySelectorAll('.trip-panel').forEach((other) => { if (other !== panel) other.open = false; });
+        }
+      });
+    });
+    document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('.carousel-track');
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const controls = carousel.parentElement.querySelector('.carousel-controls');
+      const prev = controls.querySelector('[data-carousel-prev]');
+      const next = controls.querySelector('[data-carousel-next]');
+      const indexLabel = controls.querySelector('[data-carousel-index]');
+      let index = 0;
+      const render = () => {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        indexLabel.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      };
+      prev.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; render(); });
+      next.addEventListener('click', () => { index = (index + 1) % slides.length; render(); });
+      render();
+    });
+  </script>
+<script>document.getElementById('year-span').textContent=new Date().getFullYear();</script>
+</body>
+</html>
