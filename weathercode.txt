@@ -1,0 +1,171 @@
+// ESP32 Weather Station
+// Hardware: 1.3" I2C OLED (SSD1306), BMP280, DHT22
+// =====================================================
+
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_BMP280.h>
+#include <DHT.h>
+
+// -- OLED ----------------------------------------------
+#define SCREEN_WIDTH  128
+#define SCREEN_HEIGHT  64
+#define OLED_RESET     -1
+#define OLED_ADDRESS  0x3C
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// -- BMP280 --------------------------------------------
+Adafruit_BMP280 bmp;
+
+// -- DHT22 ---------------------------------------------
+#define DHT_PIN   4
+#define DHT_TYPE  DHT22
+DHT dht(DHT_PIN, DHT_TYPE);
+
+// -- Timing --------------------------------------------
+unsigned long lastUpdate = 0;
+const unsigned long UPDATE_MS = 2000;
+
+uint8_t page = 0;  // 0 = Temp/Humidity, 1 = Pressure/Altitude
+
+// ------------------------------------------------------
+void drawHeader(const char* title) {
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println(title);
+  display.drawLine(0, 10, SCREEN_WIDTH - 1, 10, SSD1306_WHITE);
+}
+
+// ------------------------------------------------------
+void showTempHumidity(float tempC, float humidity) {
+  display.clearDisplay();
+  drawHeader("  ESP32 WEATHER");
+
+  display.setTextSize(1);
+  display.setCursor(0, 16);
+  display.print("Temp:");
+
+  display.setTextSize(2);
+  display.setCursor(40, 13);
+  display.print(tempC, 1);
+  display.print((char)247);   // degree symbol via ASCII code
+  display.print("C");
+
+  display.setTextSize(1);
+  display.setCursor(0, 38);
+  display.print("Humidity:");
+
+  display.setTextSize(2);
+  display.setCursor(40, 35);
+  display.print(humidity, 1);
+  display.print("%");
+
+  display.setTextSize(1);
+  display.setCursor(0, 56);
+  display.print("[1/2]  Temp & RH");
+
+  display.display();
+}
+
+// ------------------------------------------------------
+void showPressureAltitude(float pressure, float altitude) {
+  display.clearDisplay();
+  drawHeader("  ESP32 WEATHER");
+
+  display.setTextSize(1);
+  display.setCursor(0, 16);
+  display.print("Press:");
+
+  display.setTextSize(2);
+  display.setCursor(40, 13);
+  display.print(pressure / 100.0F, 1);
+  display.setTextSize(1);
+  display.print(" hPa");
+
+  display.setTextSize(1);
+  display.setCursor(0, 38);
+  display.print("Alt:");
+
+  display.setTextSize(2);
+  display.setCursor(40, 35);
+  display.print(altitude, 1);
+  display.setTextSize(1);
+  display.print(" m");
+
+  display.setTextSize(1);
+  display.setCursor(0, 56);
+  display.print("[2/2]  Pres & Alt");
+
+  display.display();
+}
+
+// ------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS)) {
+    Serial.println(F("SSD1306 init failed"));
+    for (;;);
+  }
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(20, 24);
+  display.println("Initialising...");
+  display.display();
+  delay(1000);
+
+  if (!bmp.begin(0x76)) {
+    Serial.println(F("BMP280 not found -- check wiring!"));
+    display.clearDisplay();
+    display.setCursor(0, 20);
+    display.println("BMP280 ERROR");
+    display.display();
+    for (;;);
+  }
+
+  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,
+                  Adafruit_BMP280::SAMPLING_X2,
+                  Adafruit_BMP280::SAMPLING_X16,
+                  Adafruit_BMP280::FILTER_X16,
+                  Adafruit_BMP280::STANDBY_MS_500);
+
+  dht.begin();
+  Serial.println(F("Weather station ready"));
+}
+
+// ------------------------------------------------------
+void loop() {
+  unsigned long now = millis();
+
+  if (now - lastUpdate >= UPDATE_MS) {
+    lastUpdate = now;
+
+    float humidity = dht.readHumidity();
+    float tempDHT  = dht.readTemperature();
+    float tempBMP  = bmp.readTemperature();
+    float pressure = bmp.readPressure();
+    float altitude = bmp.readAltitude(1013.25);  // adjust to local sea-level pressure
+
+    if (!isnan(humidity) && !isnan(tempDHT)) {
+      Serial.printf("DHT22  -> Temp: %.1f C  Hum: %.1f %%\n", tempDHT, humidity);
+    } else {
+      Serial.println("DHT22  -> Read failed");
+    }
+    Serial.printf("BMP280 -> Temp: %.1f C  Press: %.1f hPa  Alt: %.1f m\n",
+                  tempBMP, pressure / 100.0F, altitude);
+
+    if (page == 0) {
+      float t = isnan(tempDHT) ? tempBMP : tempDHT;
+      float h = isnan(humidity) ? 0.0F : humidity;
+      showTempHumidity(t, h);
+    } else {
+      showPressureAltitude(pressure, altitude);
+    }
+
+    page = (page + 1) % 2;
+  }
+}
