@@ -26,7 +26,7 @@
     .nav-link:hover,.nav-link-active{color:var(--text-main);background:rgba(22,163,74,.04);transform:translateY(-1px)} .nav-link:hover::after,.nav-link-active::after{transform:scaleX(1)}
     .site-title{font-weight:600;font-size:.9rem;letter-spacing:.16em;text-transform:uppercase;padding:.25rem .8rem;border-radius:.6rem;background:linear-gradient(90deg,#bbf7d0,#dcfce7);color:#14532d;border:1px solid rgba(187,247,208,.9)}
     .hero{position:relative;min-height:90vh;display:flex;align-items:end;padding:7rem 0 3rem;overflow:hidden;background:radial-gradient(circle at top left,#fbfdfb 0%,#f4faf5 45%,#f8fafb 100%)}
-    .hero-bg{position:absolute;inset:0;background-image:linear-gradient(to top, rgba(15,23,42,.55), rgba(15,23,42,.1)), url('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.03)}
+    .hero-bg{position:cover;inset:0;background-image:linear-gradient(to top, rgba(15,23,42,.55), rgba(15,23,42,.1)), url('.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.03)}
     .hero-inner{position:relative;z-index:1;width:min(calc(100% - 2rem),var(--max-width));margin:0 auto;color:#fff}.hero-kicker{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.76);margin-bottom:1rem}.hero-title{font-size:clamp(3rem,6vw + 1rem,6rem);line-height:.94;letter-spacing:-.05em;max-width:9ch}.hero-sub{margin-top:1.1rem;font-size:1rem;color:rgba(255,255,255,.85);max-width:34rem}
     .page-shell{max-width:var(--max-width);margin-inline:auto;padding:var(--space-12) var(--space-4) var(--space-16)}
     .season-stack{display:grid;gap:var(--space-6)}
@@ -64,8 +64,7 @@
   <section class="hero" aria-label="Robotics hero">
     <div class="hero-bg"></div>
     <div class="hero-inner">
-      <div class="hero-kicker">Robotics archive</div>
-      <h1 class="hero-title">Build logs, match notes, and lessons learned.</h1>
+      <h1 class="hero-title"></h1>
       <p class="hero-sub">Two VEX seasons, one structured archive, and room for detailed journal entries.</p>
     </div>
   </section>
