@@ -1,4 +1,4 @@
-< !doctype html>
+<!doctype html>
 <html lang="en">
    <head>
       <meta charset="utf-8">
@@ -180,67 +180,33 @@
             margin-inline: auto;
             padding: var(--space-12) var(--space-4) var(--space-16)
          }
-         .trip-stack {
-            display: grid;
-            gap: var(--space-6)
-            }
-         .trip-card {
-            border-radius: 1.2rem;
-            background: var(--panel);
-            border: 1px solid rgba(255, 255, 255, .72);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            padding: var(--space-6)
-         }
-         .trip-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .65rem;
-            margin-bottom: var(--space-3)
-         }
-         .trip-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: .42rem .8rem;
-            border-radius: var(--radius-pill);
-            background: rgba(255, 255, 255, .72);
-            border: 1px solid rgba(255, 255, 255, .7);
-            font-size: .78rem;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: #4b5563
-         }
-         .trip-title {
-            font-size: clamp(1.8rem, 2.2vw + 1rem, 2.6rem);
-            line-height: 1.04;
-            margin-bottom: .4rem
-         }
-         .trip-subtitle {
-            font-size: .98rem;
-            color: var(--text-muted);
-            margin-bottom: var(--space-5)
-         }
          .trip-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
-            gap: var(--space-5);
-            align-items: start
+           display: grid;
+           grid-template-columns: minmax(0, 1.6fr) minmax(320px, .9fr);
+           gap: var(--space-5);
+           align-items: start;
          }
+         
+         .trip-grid.trip-grid-wide {
+           grid-template-columns: minmax(0, 1.6fr) minmax(360px, .8fr);
+         }
+         
+         .trip-media {
+           min-width: 0;
+         }
+         
          .carousel {
            position: relative;
            overflow: hidden;
            border-radius: 1rem;
            background: rgba(255, 255, 255, .5);
            border: 1px solid rgba(255, 255, 255, .55);
-           aspect-ratio: 16 / 9;
          }
          
          .carousel-photo {
            display: none;
            position: relative;
            width: 100%;
-           height: 100%;
          }
          
          .carousel-photo.active {
@@ -250,9 +216,9 @@
          
          .carousel-photo img {
            width: 100%;
-           height: 100%;
-           object-fit: contain;
+           height: auto;
            display: block;
+           object-fit: contain;
          }
          
          .carousel-caption {
@@ -289,26 +255,26 @@
            font-size: 1.1rem;
          }
          
-         @keyframes fade {
-           from { opacity: 0; transform: scale(.99); }
-           to { opacity: 1; transform: scale(1); }
-         }
          .trip-side {
-         display: grid;
-         gap: var(--space-4)
+           display: grid;
+           gap: var(--space-4);
+           min-width: 0;
+           align-self: stretch;
          }
+         
          .trip-side-card {
-         padding: 1.2rem 1.25rem;
-         border-radius: 1rem;
-         background: rgba(255, 255, 255, .56);
-         border: 1px solid rgba(255, 255, 255, .7);
-         color: var(--text-muted);
-         font-size: .96rem;
-         line-height: 1.75;
-         max-height: 500px;
-         overflow-y: auto;
-         scrollbar-width: thin
+           padding: 1.2rem 1.25rem;
+           border-radius: 1rem;
+           background: rgba(255, 255, 255, .56);
+           border: 1px solid rgba(255, 255, 255, .7);
+           color: var(--text-muted);
+           font-size: .96rem;
+           line-height: 1.75;
+           max-height: 100%;
+           overflow-y: auto;
+           scrollbar-width: thin;
          }
+         
          .trip-log-block {
            display: grid;
            gap: .5rem;
@@ -339,15 +305,17 @@
            margin: 1.1rem 0;
            background: rgba(148, 163, 184, .35);
          }
+         
          @keyframes fade {
-            from {
-               opacity: .35;
-               transform: scale(.995)
-            }
-            to {
-               opacity: 1;
-               transform: scale(1)
-            }
+           from { opacity: .35; transform: scale(.995); }
+           to { opacity: 1; transform: scale(1); }
+         }
+         
+         @media (max-width: 900px) {
+           .trip-grid,
+           .trip-grid.trip-grid-wide {
+             grid-template-columns: 1fr;
+           }
          }
          footer {
             background: #fff;
@@ -486,241 +454,27 @@
       </style>
    </head>
    <body>
-      <div class="site-header-wrap">
-         <header class="site-header">
-            <nav class="nav-left" aria-label="Main navigation"><a href="index.html" class="nav-link">Home</a><a href="robotics.html" class="nav-link">VEX V5 Robotics</a><a href="engineering.html" class="nav-link">Engineering Projects</a><a href="outdoors.html" class="nav-link nav-link-active">Outdoors</a><a href="piano.html" class="nav-link">Piano Teaching</a></nav>
-            <div class="nav-right">
-               <div class="site-title">kirosliforlio</div>
+      <div class=\"site-header-wrap\">
+         <header class=\"site-header\">
+            <nav class=\"nav-left\" aria-label=\"Main navigation\"><a href=\"index.html\" class=\"nav-link\">Home</a><a href=\"robotics.html\" class=\"nav-link\">VEX V5 Robotics</a><a href=\"engineering.html\" class=\"nav-link\">Engineering Projects</a><a href=\"outdoors.html\" class=\"nav-link nav-link-active\">Outdoors</a><a href=\"piano.html\" class=\"nav-link\">Piano Teaching</a></nav>
+            <div class=\"nav-right\">
+               <div class=\"site-title\">kirosliforlio</div>
             </div>
          </header>
       </div>
-      <section class="hero" aria-label="Outdoors hero">
-         <div class="hero-bg"></div>
-         <div class="hero-inner">
-            <h1 class="hero-title">Welcome to my outdoors page!
-            </h1>
-            <p class="hero-sub">Take a look at all my outdoors content, from photography to trip logs
-            </p>
+      <section class=\"hero\" aria-label=\"Outdoors hero\">
+         <div class=\"hero-bg\"></div>
+         <div class=\"hero-inner\">
+            <h1 class=\"hero-title\">Welcome to my outdoors page!\n            </h1>
+            <p class=\"hero-sub\">Take a look at all my outdoors content, from photography to trip logs\n            </p>
          </div>
       </section>
-      <main class="page-shell">
-         <section class="trip-stack" aria-label="Outdoors trips">
-            <article class="trip-card">
-               <div class="trip-meta"><span class="trip-tag">Trip 01</span><span class="trip-tag">North Cascades National Park, Washington , USA</span><span class="trip-tag">Sulphide Glacier Route</span></div>
-               <h2 class="trip-title">Mt Shuksan</h2>
-               <p class="trip-subtitle">Located in the North Cascades, Mt.Shuksan stands at an elevation of 2783m and prominence of 1344m
-               </p>
-               <div class="trip-grid">
-                  <div class="carousel-photo active">
-                     <img src="shuksan1.jpg" alt="Mt Shuksan photo 1">
-                     <div class="carousel-caption">Old growth tree on approach hike</div>
-                  </div>
-                  <div class="carousel-photo">
-                     <div class="carousel-photo">
-                        <img src="shuksan2.jpg" alt="Mt Shuksan photo 2">
-                        <div class="carousel-caption">Epic portrait on the ridge right below camp, daunting view of Mt.Baker<div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan3.jpg" alt="Mt Shuksan photo 3">
-                        <div class="carousel-caption">View of summit pyramid(far left) and sulphide glacier from camp</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan4.jpg" alt="Mt Shuksan photo 4">
-                        <div class="carousel-caption">Morning glow on lower glacier, right below rock split section</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan5.jpg" alt="Mt Shuksan photo 5">
-                        <div class="carousel-caption">Looking down at lower sulphide from rock split</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan6.jpg" alt="Mt Shuksan photo 6">
-                        <div class="carousel-caption">View of summit pyramid and upper sulphide glacier from top of rock split (tiny dots were other climbers!)</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan7.jpg" alt="Mt Shuksan photo 7">
-                        <div class="carousel-caption">View of the rugged peaks of the North Cascades from upper sulphide</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan8.jpg" alt="Mt Shuksan photo 8">
-                        <div class="carousel-caption">Looking down from summit pyramid</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan9.jpg" alt="Mt Shuksan photo 9">
-                        <div class="carousel-caption">Looking deeper into the park, Glacier Peak barely visible towering over</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="shuksan10.jpg" alt="Mt Shuksan photo 10">
-                        <div class="carousel-caption">Scrambling on summit pyramid with Mt.Baker in background</div>
-                     </div>
-                     <div class="carousel-controls"><button class="carousel-btn carousel-prev" type="button">←</button><button class="carousel-btn carousel-next" type="button">→</button></div>
-                  </div>
-                  <div class="trip-side">
-                     <div class="trip-side-card">
-                        <div class="trip-log-block">
-                        <h3>Mt. Shuksan — Sulphide Glacier Route</h3>
-                        <p class="trip-log-range">September 19–20, 2025</p>
-                     </div>
-                     
-                     <div class="trip-log-block">
-                        <h4>Trailhead → Base Camp</h4>
-                        <p class="trip-log-meta">September 19 | Departed 11:00 AM · Arrived camp 7:00 PM</p>
-                        <p>Hit the Shannon Ridge trailhead just before noon. The trail starts as a well-maintained forest path, climbing gradually through old-growth before opening up onto heather benches and broken slabs higher up. You cross into North Cascades National Park territory on the way up — camp sits right on the other side of that boundary, just below the toe of the Sulphide Glacier at around 6,100 ft.</p>
-                        <p>Camp was completely dry — no snow, just rock and dirt tent pads with wide open views of the North Cascades. A guided group was already set up nearby which made finding the spot easy. Water from the stream, dinner, early night. Big day ahead.</p>
-                     </div>
-                     
-                     <div class="trip-log-divider"></div>
-                     
-                     <div class="trip-log-block">
-                        <h4>Camp → Summit → Camp</h4>
-                        <p class="trip-log-meta">September 20 | Departed 7:00 AM · Summited 12:00 PM · Back at camp mid-afternoon</p>
-                        <p>Left camp at 7 with crampons on and the glacier hard and cold. The lower Sulphide is mostly blue ice this late in the season, with open crevasses you route around rather than over. The boot pack from prior parties helped with navigation in the early morning light.</p>
-                        <p>The route's biggest curveball in late September was the glacier split. A prominent rock band cuts across at around 6,500 ft where the lower and upper sections of the Sulphide have pulled completely apart, leaving a loose 3rd class scramble of a couple hundred feet to regain the upper glacier. It added about an hour — not technical, but slow and loose going with a full pack and rope team. Once back on the upper Sulphide the angle steepens toward the base of the summit pyramid.</p>
-                        <p>The summit pyramid is where the route steps up to Class 3/4 — solid rock but real exposure, hands and feet the whole way up the center gully. Rockfall is a genuine concern with multiple parties moving up and down at the same time, so we moved efficiently and kept communication with teams above. Topped out at noon. Baker to the south, the Pickets to the east, the whole North Cascades in every direction.</p>
-                        <p>Descent of the pyramid takes full attention — easier to rush on the way down, and that's when mistakes happen. Back on the glacier the pace picked up and we were at camp by mid-afternoon.</p>
-                     </div>
-                     
-                     <div class="trip-log-divider"></div>
-                     
-                     <div class="trip-log-block">
-                        <h4>Camp → Car</h4>
-                        <p class="trip-log-meta">September 20 | Departed mid-afternoon · Arrived trailhead 11:00 PM</p>
-                        <p>Breaking camp on post-summit legs is its own kind of effort. Everything gets stuffed in with less care than it went in with. We were moving by mid-afternoon, aiming to clear the glacier while daylight held.</p>
-                        <p>The descent went fast — downhill on firm ice is efficient if not relaxing. The slab section below the lower glacier is where tired feet start making errors so we kept the pace measured. Back in the trees it was fully dark, headlamps on for the second time that day. The lower forest trail feels a lot longer on the way out than it did going in.</p>
-                        <p>Trailhead at 11:00 PM. Long day. The drive out was quiet.</p>
-                     </div>
-                  </div>
-               </div>
-            </article>
-            <article class="trip-card">
-               <div class="trip-meta"><span class="trip-tag">Trip 02</span><span class="trip-tag">Garibaldi Provincial Park, BC, Canada</span><span class="trip-tag">NE Arête route</span></div>
-               <h2 class="trip-title">Wedge Mountain</h2>
-               <p class="trip-subtitle">Standing at 2895m in height and 2249m in prominence, the Wedge is the tallest peak in Garibaldi Provincial Park
-               </p>
-               <div class="trip-grid">
-                  <div class="carousel">
-                     <div class="carousel-photo active">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg" alt="Mt Wedge photo 1">
-                        <div class="carousel-caption">Photo 01 description for Mt Wedge.</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cd08612ce49491325408f783c231f99842f90e.jpg" alt="Mt Wedge photo 2">
-                        <div class="carousel-caption">Photo 02 description for Mt Wedge.</div>
-                     </div>
-                     <div class="carousel-photo">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1742699698/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg" alt="Mt Wedge photo 3">
-                        <div class="carousel-caption">Photo 03 description for Mt Wedge.</div>
-                     </div>
-                     <div class="carousel-controls"><button class="carousel-btn carousel-prev" type="button">←</button><button class="carousel-btn carousel-next" type="button">→</button></div>
-                  </div>
-                  <div class="trip-side">
-                     <div class="trip-side-card">
-                       <div class="trip-log-block">
-                         <h3>Wedge Mountain — NE Arête</h3>
-                         <p class="trip-log-range">Garibaldi Provincial Park | May 17–18, 2025</p>
-                       </div>
-                     
-                       <div class="trip-log-block">
-                         <h4>Trailhead → Wedgemount Lake / Camp</h4>
-                         <p class="trip-log-meta">May 17 | Departed 12:00 PM · Arrived camp 6:00 PM</p>
-                         <p>Got a late start — later than planned, thanks to a detour back into Whistler after someone realized their boots were still at home. New boots from a Whistler shop sorted the problem, but it burned a couple hours and set the tone for what turned into a bit of a character-building trip.</p>
-                         <p>Hit the Wedgemount Lake trailhead just after noon. The trail wastes no time — it's steep and relentless from the start, climbing hard through forest before opening up into the sub-alpine. The upper section is a boulder-strewn slog that can be slippery when wet, and we were moving on tired legs by the time Wedgemount Lake came into view. The lake sits in a stunning glacial cirque, ringed by the Wedge and Armchair Glaciers — one of those spots that makes you forget how much the approach just hurt. The hut at the lakeshore campground was there but we set up tents nearby. Early night, alarm set for 4 AM.</p>
-                       </div>
-                     
-                       <div class="trip-log-divider"></div>
-                     
-                       <div class="trip-log-block">
-                         <h4>Camp → Arête Base → High Point (2,500 m) → Camp</h4>
-                         <p class="trip-log-meta">May 18 | Departed 5:00 AM · Reached arête base 8:00 AM · Back at camp 10:00 AM</p>
-                         <p>Up at 4, moving by 5 in the dark. The snow conditions were rough — deep, unconsolidated, and sinky the whole way across the glacier approach. Every step punched through a crust that never quite held, which made for slow, draining progress toward the NE Arête. It's the kind of snow that wears you down quietly.</p>
-                         <p>Reached the base of the arête at 8 AM. The arête itself is the route's crux — exposed ridge climbing that in good conditions is a serious but manageable scramble. That day it wasn't in good conditions. The summit rock above 2,500 m was iced up and far more exposed than what we were comfortable committing to without the right gear for the conditions. We made the call to turn around there. Not the summit, but 2,500 m with honest conditions beats a bad decision higher up.</p>
-                         <p>The glissade back down to camp was the highlight of the morning — what took hours to slog up took minutes to slide down. Back at camp by 10, which left time to eat, rest, and pack up without rushing.</p>
-                       </div>
-                     
-                       <div class="trip-log-divider"></div>
-                     
-                       <div class="trip-log-block">
-                         <h4>Camp → Car</h4>
-                         <p class="trip-log-meta">May 18 | Departed ~10:30 AM · Arrived trailhead 5:00 PM</p>
-                         <p>Broke camp and started down. The descent retraced the brutal uphill in reverse — the boulder field felt endless on post-summit legs, but the views back up to Wedgemount Lake on the way out were worth one more look.</p>
-                         <p>Somewhere on the descent, a tent got away from us. Wind, a loose strap, a moment of inattention — it went. One of those small disasters that feels bigger in the moment than it probably is, but still. The rest of the gear made it back intact, and we rolled into the parking lot at 5 PM, tired, tentless, and already talking about coming back to finish the job.</p>
-                       </div>
-                     </div>
-                  </div>
-               </div>
-            </article>
-            <article class="trip-card">
-               <div class="trip-meta"><span class="trip-tag">Trip 03</span><span class="trip-tag">North Cascades Range, Washington, USA</span><span class="trip-tag">Coleman Deming Route</span></div>
-               <h2 class="trip-title">Mt Baker</h2>
-               <p class="trip-subtitle">A true giant of the PNW, Mt.Baker stands at 3286m in height and 2686m in prominence, this makes it the third-tallest mountain in Washington</p>
-               <div class="trip-grid">
-                  <div class="carousel">
-                     <div class="carousel-photo active">
-                       <img src="comingsoon.jpg" alt="Mt Baker photo 1">
-                        <div class="carousel-caption">Placeholder!</div>
-                     </div>
-                     <div class="carousel-controls"><button class="carousel-btn carousel-prev" type="button">←</button><button class="carousel-btn carousel-next" type="button">→</button></div>
-                  </div>
-                  <div class="trip-side">
-                     <div class="trip-side-card">Coming Soon!
-                     </div>
-                  </div>
-               </div>
-            </article>
-         </section>
-      </main>
-      <footer>
-         <div class="footer-inner">
-            <div>
-               <div class="footer-brand-title">kirosliforlio</div>
-               <p class="footer-brand-text">A minimal home for my piano teaching,
-                  robotics,
-                  outdoors,
-                  and projects.
-               </p>
-            </div>
-            <div>
-               <div class="footer-col-title">Location</div>
-               <div class="footer-item">Metro Vancouver,
-                  BC,
-                  Canada
-               </div>
-            </div>
-            <div>
-               <div class="footer-col-title">Contact</div>
-               <div class="footer-item"><a href="mailto:kiros1134@gmail.com">kiros1134@gmail.com</a></div>
-               <div class="footer-item"><a href="tel:+17789600424">778 960 0424</a></div>
-            </div>
-            <div>
-               <div class="footer-col-title">Links</div>
-               <div class="footer-socials"><a class="social-icon-link" href="https://www.linkedin.com/in/kiros-li-8b83b0270" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" loading="lazy"></a><a class="social-icon-link" href="https://www.instagram.com/kiros.li24" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" loading="lazy"></a></div>
-               <a href="resume.pdf" class="footer-resume-link" target="_blank" rel="noopener noreferrer"><span>View my resume</span><span aria-hidden="true">→</span></a>
-            </div>
-         </div>
-         <div class="footer-bottom">
-            <div class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span><span>System operational · Outdoors archive online</span></div>
-            <span id="year-span"></span>kirosliforlio
-         </div>
-      </footer>
-      <script>document.getElementById('year-span').textContent=new Date().getFullYear();
-         const headerWrap=document.querySelector('.site-header-wrap');
-         let lastScrollY=window.scrollY;
-         
-         window.addEventListener('scroll', ()=> {
-         		const current=window.scrollY; if( !headerWrap)return; const scrollingDown=current>lastScrollY; const scrolledEnough=current>80; if(scrollingDown&&scrolledEnough)headerWrap.classList.add('header-hidden'); else if( !scrollingDown)headerWrap.classList.remove('header-hidden'); lastScrollY=current;
-         	});
-         
-         document.querySelectorAll('.carousel').forEach(carousel=> {
-         		const photos=carousel.querySelectorAll('.carousel-photo'); let current=0; const show=index=> {
-         			photos.forEach(p=>p.classList.remove('active')); photos[index].classList.add('active');
-         		}
-         
-         		; carousel.querySelector('.carousel-next').addEventListener('click', ()=> {
-         				current=(current+1)%photos.length; show(current);
-         
-         			}); carousel.querySelector('.carousel-prev').addEventListener('click', ()=> {
-         				current=(current-1+photos.length)%photos.length; show(current);
-         			});
-         	});
-      </script>
-   </body>
-</html>
+      <main class=\"page-shell\">
+         <section class=\"trip-stack\" aria-label=\"Outdoors trips\">
+            <article class=\"trip-card\">
+               <div class=\"trip-meta\"><span class=\"trip-tag\">Trip 01</span><span class=\"trip-tag\">North Cascades National Park, Washington , USA</span><span class=\"trip-tag\">Sulphide Glacier Route</span></div>
+               <h2 class=\"trip-title\">Mt Shuksan</h2>
+               <p class=\"trip-subtitle\">Located in the North Cascades, Mt.Shuksan stands at an elevation of 2783m and prominence of 1344m\n               </p>
+               <div class=\"trip-grid\">\n                  <div class=\"trip-media\">\n                     <div class=\"carousel\">\n                        <div class=\"carousel-photo active\">\n                           <img src=\"shuksan1.jpg\" alt=\"Mt Shuksan photo 1\">\n                           <div class=\"carousel-caption\">Old growth tree on approach hike</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan2.jpg\" alt=\"Mt Shuksan photo 2\">\n                           <div class=\"carousel-caption\">Epic portrait on the ridge right below camp, daunting view of Mt.Baker</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan3.jpg\" alt=\"Mt Shuksan photo 3\">\n                           <div class=\"carousel-caption\">View of summit pyramid(far left) and sulphide glacier from camp</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan4.jpg\" alt=\"Mt Shuksan photo 4\">\n                           <div class=\"carousel-caption\">Morning glow on lower glacier, right below rock split section</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan5.jpg\" alt=\"Mt Shuksan photo 5\">\n                           <div class=\"carousel-caption\">Looking down at lower sulphide from rock split</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan6.jpg\" alt=\"Mt Shuksan photo 6\">\n                           <div class=\"carousel-caption\">View of summit pyramid and upper sulphide glacier from top of rock split (tiny dots were other climbers!)</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan7.jpg\" alt=\"Mt Shuksan photo 7\">\n                           <div class=\"carousel-caption\">View of the rugged peaks of the North Cascades from upper sulphide</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan8.jpg\" alt=\"Mt Shuksan photo 8\">\n                           <div class=\"carousel-caption\">Looking down from summit pyramid</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan9.jpg\" alt=\"Mt Shuksan photo 9\">\n                           <div class=\"carousel-caption\">Looking deeper into the park, Glacier Peak barely visible towering over</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"shuksan10.jpg\" alt=\"Mt Shuksan photo 10\">\n                           <div class=\"carousel-caption\">Scrambling on summit pyramid with Mt.Baker in background</div>\n                        </div>\n                        <div class=\"carousel-controls\"><button class=\"carousel-btn carousel-prev\" type=\"button\">←</button><button class=\"carousel-btn carousel-next\" type=\"button\">→</button></div>\n                     </div>\n                  </div>\n                  <div class=\"trip-side\">\n                     <div class=\"trip-side-card\">\n                        <div class=\"trip-log-block\">\n                        <h3>Mt. Shuksan — Sulphide Glacier Route</h3>\n                        <p class=\"trip-log-range\">September 19–20, 2025</p>\n                     </div>\n                     \n                     <div class=\"trip-log-block\">\n                        <h4>Trailhead → Base Camp</h4>\n                        <p class=\"trip-log-meta\">September 19 | Departed 11:00 AM · Arrived camp 7:00 PM</p>\n                        <p>Hit the Shannon Ridge trailhead just before noon. The trail starts as a well-maintained forest path, climbing gradually through old-growth before opening up onto heather benches and broken slabs higher up. You cross into North Cascades National Park territory on the way up — camp sits right on the other side of that boundary, just below the toe of the Sulphide Glacier at around 6,100 ft.</p>\n                        <p>Camp was completely dry — no snow, just rock and dirt tent pads with wide open views of the North Cascades. A guided group was already set up nearby which made finding the spot easy. Water from the stream, dinner, early night. Big day ahead.</p>\n                     </div>\n                     \n                     <div class=\"trip-log-divider\"></div>\n                     \n                     <div class=\"trip-log-block\">\n                        <h4>Camp → Summit → Camp</h4>\n                        <p class=\"trip-log-meta\">September 20 | Departed 7:00 AM · Summited 12:00 PM · Back at camp mid-afternoon</p>\n                        <p>Left camp at 7 with crampons on and the glacier hard and cold. The lower Sulphide is mostly blue ice this late in the season, with open crevasses you route around rather than over. The boot pack from prior parties helped with navigation in the early morning light.</p>\n                        <p>The route's biggest curveball in late September was the glacier split. A prominent rock band cuts across at around 6,500 ft where the lower and upper sections of the Sulphide have pulled completely apart, leaving a loose 3rd class scramble of a couple hundred feet to regain the upper glacier. It added about an hour — not technical, but slow and loose going with a full pack and rope team. Once back on the upper Sulphide the angle steepens toward the base of the summit pyramid.</p>\n                        <p>The summit pyramid is where the route steps up to Class 3/4 — solid rock but real exposure, hands and feet the whole way up the center gully. Rockfall is a genuine concern with multiple parties moving up and down at the same time, so we moved efficiently and kept communication with teams above. Topped out at noon. Baker to the south, the Pickets to the east, the whole North Cascades in every direction.</p>\n                        <p>Descent of the pyramid takes full attention — easier to rush on the way down, and that's when mistakes happen. Back on the glacier the pace picked up and we were at camp by mid-afternoon.</p>\n                     </div>\n                     \n                     <div class=\"trip-log-divider\"></div>\n                     \n                     <div class=\"trip-log-block\">\n                        <h4>Camp → Car</h4>\n                        <p class=\"trip-log-meta\">September 20 | Departed mid-afternoon · Arrived trailhead 11:00 PM</p>\n                        <p>Breaking camp on post-summit legs is its own kind of effort. Everything gets stuffed in with less care than it went in with. We were moving by mid-afternoon, aiming to clear the glacier while daylight held.</p>\n                        <p>The descent went fast — downhill on firm ice is efficient if not relaxing. The slab section below the lower glacier is where tired feet start making errors so we kept the pace measured. Back in the trees it was fully dark, headlamps on for the second time that day. The lower forest trail feels a lot longer on the way out than it did going in.</p>\n                        <p>Trailhead at 11:00 PM. Long day. The drive out was quiet.</p>\n                     </div>\n                  </div>\n               </div>\n            </article>\n            <article class=\"trip-card\">\n               <div class=\"trip-meta\"><span class=\"trip-tag\">Trip 02</span><span class=\"trip-tag\">Garibaldi Provincial Park, BC, Canada</span><span class=\"trip-tag\">NE Arête route</span></div>\n               <h2 class=\"trip-title\">Wedge Mountain</h2>\n               <p class=\"trip-subtitle\">Standing at 2895m in height and 2249m in prominence, the Wedge is the tallest peak in Garibaldi Provincial Park\n               </p>\n               <div class=\"trip-grid\">\n                  <div class=\"trip-media\">\n                     <div class=\"carousel\">\n                        <div class=\"carousel-photo active\">\n                           <img src=\"https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg\" alt=\"Mt Wedge photo 1\">\n                           <div class=\"carousel-caption\">Photo 01 description for Mt Wedge.</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cd08612ce49491325408f783c231f99842f90e.jpg\" alt=\"Mt Wedge photo 2\">\n                           <div class=\"carousel-caption\">Photo 02 description for Mt Wedge.</div>\n                        </div>\n                        <div class=\"carousel-photo\">\n                           <img src=\"https://pplx-res.cloudinary.com/image/upload/v1742699698/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg\" alt=\"Mt Wedge photo 3\">\n                           <div class=\"carousel-caption\">Photo 03 description for Mt Wedge.</div>\n                        </div>\n                        <div class=\"carousel-controls\"><button class=\"carousel-btn carousel-prev\" type=\"button\">←</button><button class=\"carousel-btn carousel-next\" type=\"button\">→</button></div>\n                     </div>\n                  </div>\n                  <div class=\"trip-side\">\n                     <div class=\"trip-side-card\">\n                       <div class=\"trip-log-block\">\n                         <h3>Wedge Mountain — NE Arête</h3>\n                         <p class=\"trip-log-range\">Garibaldi Provincial Park | May 17–18, 2025</p>\n                       </div>\n                     \n                       <div class=\"trip-log-block\">\n                         <h4>Trailhead → Wedgemount Lake / Camp</h4>\n                         <p class=\"trip-log-meta\">May 17 | Departed 12:00 PM · Arrived camp 6:00 PM</p>\n                         <p>Got a late start — later than planned, thanks to a detour back into Whistler after someone realized their boots were still at home. New boots from a Whistler shop sorted the problem, but it burned a couple hours and set the tone for what turned into a bit of a character-building trip.</p>\n                         <p>Hit the Wedgemount Lake trailhead just after noon. The trail wastes no time — it's steep and relentless from the start, climbing hard through forest before opening up into the sub-alpine. The upper section is a boulder-strewn slog that can be slippery when wet, and we were moving on tired legs by the time Wedgemount Lake came into view. The lake sits in a stunning glacial cirque, ringed by the Wedge and Armchair Glaciers — one of those spots that makes you forget how much the approach just hurt. The hut at the lakeshore campground was there but we set up tents nearby. Early night, alarm set for 4 AM.</p>\n                       </div>\n                     \n                       <div class=\"trip-log-divider\"></div>\n                     \n                       <div class=\"trip-log-block\">\n                         <h4>Camp → Arête Base → High Point (2,500 m) → Camp</h4>\n                         <p class=\"trip-log-meta\">May 18 | Departed 5:00 AM · Reached arête base 8:00 AM · Back at camp 10:00 AM</p>\n                         <p>Up at 4, moving by 5 in the dark. The snow conditions were rough — deep, unconsolidated, and sinky the whole way across the glacier approach. Every step punched through a crust that never quite held, which made for slow, draining progress toward the NE Arête. It's the kind of snow that wears you down quietly.</p>\n                         <p>Reached the base of the arête at 8 AM. The arête itself is the route's crux — exposed ridge climbing that in good conditions is a serious but manageable scramble. That day it wasn't in good conditions. The summit rock above 2,500 m was iced up and far more exposed than what we were comfortable committing to without the right gear for the conditions. We made the call to turn around there. Not the summit, but 2,500 m with honest conditions beats a bad decision higher up.</p>\n                         <p>The glissade back down to camp was the highlight of the morning — what took hours to slog up took minutes to slide down. Back at camp by 10, which left time to eat, rest, and pack up without rushing.</p>\n                       </div>\n                     \n                       <div class=\"trip-log-divider\"></div>\n                     \n                       <div class=\"trip-log-block\">\n                         <h4>Camp → Car</h4>\n                         <p class=\"trip-log-meta\">May 18 | Departed ~10:30 AM · Arrived trailhead 5:00 PM</p>\n                         <p>Broke camp and started down. The descent retraced the brutal uphill in reverse — the boulder field felt endless on post-summit legs, but the views back up to Wedgemount Lake on the way out were worth one more look.</p>\n                         <p>Somewhere on the descent, a tent got away from us. Wind, a loose strap, a moment of inattention — it went. One of those small disasters that feels bigger in the moment than it probably is, but still. The rest of the gear made it back intact, and we rolled into the parking lot at 5 PM, tired, tentless, and already talking about coming back to finish the job.</p>\n                       </div>\n                     </div>\n                  </div>\n               </div>\n            </article>\n            <article class=\"trip-card\">\n               <div class=\"trip-meta\"><span class=\"trip-tag\">Trip 03</span><span class=\"trip-tag\">North Cascades Range, Washington, USA</span><span class=\"trip-tag\">Coleman Deming Route</span></div>\n               <h2 class=\"trip-title\">Mt Baker</h2>\n               <p class=\"trip-subtitle\">A true giant of the PNW, Mt.Baker stands at 3286m in height and 2686m in prominence, this makes it the third-tallest mountain in Washington</p>\n               <div class=\"trip-grid\">\n                  <div class=\"trip-media\">\n                     <div class=\"carousel\">\n                        <div class=\"carousel-photo active\">\n                          <img src=\"comingsoon.jpg\" alt=\"Mt Baker photo 1\">\n                           <div class=\"carousel-caption\">Placeholder!</div>\n                        </div>\n                        <div class=\"carousel-controls\"><button class=\"carousel-btn carousel-prev\" type=\"button\">←</button><button class=\"carousel-btn carousel-next\" type=\"button\">→</button></div>\n                     </div>\n                  </div>\n                  <div class=\"trip-side\">\n                     <div class=\"trip-side-card\">Coming Soon!\n                     </div>\n                  </div>\n               </div>\n            </article>\n         </section>\n      </main>\n      <footer>\n         <div class=\"footer-inner\">\n            <div>\n               <div class=\"footer-brand-title\">kirosliforlio</div>\n               <p class=\"footer-brand-text\">A minimal home for my piano teaching,\n                  robotics,\n                  outdoors,\n                  and projects.\n               </p>\n            </div>\n            <div>\n               <div class=\"footer-col-title\">Location</div>\n               <div class=\"footer-item\">Metro Vancouver,\n                  BC,\n                  Canada\n               </div>\n            </div>\n            <div>\n               <div class=\"footer-col-title\">Contact</div>\n               <div class=\"footer-item\"><a href=\"mailto:kiros1134@gmail.com\">kiros1134@gmail.com</a></div>\n               <div class=\"footer-item\"><a href=\"tel:+17789600424\">778 960 0424</a></div>\n            </div>\n            <div>\n               <div class=\"footer-col-title\">Links</div>\n               <div class=\"footer-socials\"><a class=\"social-icon-link\" href=\"https://www.linkedin.com/in/kiros-li-8b83b0270\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LinkedIn\"><img src=\"https://cdn-icons-png.flaticon.com/512/174/174857.png\" alt=\"LinkedIn\" loading=\"lazy\"></a><a class=\"social-icon-link\" href=\"https://www.instagram.com/kiros.li24\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Instagram\"><img src=\"https://cdn-icons-png.flaticon.com/512/174/174855.png\" alt=\"Instagram\" loading=\"lazy\"></a></div>\n               <a href=\"resume.pdf\" class=\"footer-resume-link\" target=\"_blank\" rel=\"noopener noreferrer\"><span>View my resume</span><span aria-hidden=\"true\">→</span></a>\n            </div>\n         </div>\n         <div class=\"footer-bottom\">\n            <div class=\"footer-status\"><span class=\"footer-status-dot\" aria-hidden=\"true\"></span><span>System operational · Outdoors archive online</span></div>\n            <span id=\"year-span\"></span> kirosliforlio\n         </div>\n      </footer>\n      <script>document.getElementById('year-span').textContent=new Date().getFullYear();\n         const headerWrap=document.querySelector('.site-header-wrap');\n         let lastScrollY=window.scrollY;\n         \n         window.addEventListener('scroll', ()=> {\n         \ta const current=window.scrollY; if( !headerWrap)return; const scrollingDown=current>lastScrollY; const scrolledEnough=current>80; if(scrollingDown&&scrolledEnough)headerWrap.classList.add('header-hidden'); else if( !scrollingDown)headerWrap.classList.remove('header-hidden'); lastScrollY=current;\n         \t});\n         \n         document.querySelectorAll('.carousel').forEach(carousel=> {\n         \ta const photos=carousel.querySelectorAll('.carousel-photo'); let current=0; const show=index=> {\n         \ta\t\tphotos.forEach(p=>p.classList.remove('active')); photos[index].classList.add('active');\n         \t\t}\n         \n         \t\t; carousel.querySelector('.carousel-next').addEventListener('click', ()=> {\n         \t\t\t\tcurrent=(current+1)%photos.length; show(current);\n         \n         \t\t\t}); carousel.querySelector('.carousel-prev').addEventListener('click', ()=> {\n         \t\t\t\tcurrent=(current-1+photos.length)%photos.length; show(current);\n         \t\t\t});\n         \t});\n      </script>\n   </body>\n</html>\n```
+
+One thing to note: your pasted source still has a few malformed spots in the JS and one opening `<article>` tag, so this output preserves your styling but fixes those structure issues. 
