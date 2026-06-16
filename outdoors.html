@@ -1,1 +1,863 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>kirosliforlio | Outdoors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --text-main:       #111827;
+        --text-muted:      #6b7280;
+        --text-soft:       #9ca3af;
+        --accent:          #16a34a;
+        --border:          #e5e7eb;
+        --panel:           rgba(255, 255, 255, .78);
+        --panel-strong:    rgba(255, 255, 255, .9);
+        --shadow:          0 18px 60px rgba(15, 23, 42, .12);
+        --max-width:       1120px;
+        --radius-pill:     999px;
+        --space-3:         .75rem;
+        --space-4:         1rem;
+        --space-5:         1.25rem;
+        --space-6:         1.5rem;
+        --space-8:         2rem;
+        --space-12:        3rem;
+        --space-16:        4rem;
+        --transition-fast: 180ms cubic-bezier(.25, .46, .45, .94);
+        --transition-med:  280ms cubic-bezier(.25, .46, .45, .94);
+      }
 
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text-main);
+        background: linear-gradient(180deg, #f7fafc 0%, #f8fafb 42%, #f3f4f6 100%);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* ── Header ── */
+      .site-header-wrap {
+        position: fixed;
+        inset-inline: 0;
+        top: .75rem;
+        z-index: 40;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+        transition: transform 220ms ease-out, opacity 220ms ease-out;
+      }
+
+      .site-header-wrap.header-hidden {
+        transform: translateY(-120%);
+        opacity: 0;
+      }
+
+      .site-header {
+        pointer-events: auto;
+        width: min(calc(100% - 1.5rem), var(--max-width));
+        padding: .6rem 1rem;
+        border-radius: .9rem;
+        background: rgba(255, 255, 255, .96);
+        border: 1px solid rgba(226, 232, 240, .95);
+        box-shadow: 0 14px 50px rgba(15, 23, 42, .08);
+        backdrop-filter: blur(18px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+      }
+
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .nav-left {
+        font-size: .88rem;
+        color: var(--text-soft);
+        flex-wrap: wrap;
+      }
+
+      .nav-link {
+        position: relative;
+        padding: .35rem .85rem;
+        border-radius: var(--radius-pill);
+        transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 22%;
+        right: 22%;
+        bottom: .14rem;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform var(--transition-fast);
+      }
+
+      .nav-link:hover,
+      .nav-link-active {
+        color: var(--text-main);
+        background: rgba(22, 163, 74, .04);
+        transform: translateY(-1px);
+      }
+
+      .nav-link:hover::after,
+      .nav-link-active::after {
+        transform: scaleX(1);
+      }
+
+      .site-title {
+        font-weight: 600;
+        font-size: .9rem;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        padding: .25rem .8rem;
+        border-radius: .6rem;
+        background: linear-gradient(90deg, #bbf7d0, #dcfce7);
+        color: #14532d;
+        border: 1px solid rgba(187, 247, 208, .9);
+      }
+
+      /* ── Hero ── */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: end;
+        padding: 7rem 0 3rem;
+        overflow: hidden;
+        background: radial-gradient(circle at top left, #fbfdfb 0%, #f4faf5 45%, #f8fafb 100%);
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(to top, rgba(15, 23, 42, .55), rgba(15, 23, 42, .08)), url('IMG_0730.JPG');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: scale(1.03);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        width: min(calc(100% - 2rem), var(--max-width));
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      .hero-kicker {
+        font-size: .8rem;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, .76);
+        margin-bottom: 1rem;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 6vw + 1rem, 6rem);
+        line-height: .94;
+        letter-spacing: -.05em;
+        max-width: 10ch;
+      }
+
+      .hero-sub {
+        margin-top: 1.1rem;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .86);
+        max-width: 34rem;
+      }
+
+      /* ── Page shell ── */
+      .page-shell {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        padding: var(--space-12) var(--space-4) var(--space-16);
+      }
+
+      /* ── Trip stack ── */
+      .trip-stack {
+        display: grid;
+        gap: var(--space-6);   /* FIX: was missing semicolon */
+      }
+
+      .trip-card {
+        border-radius: 1.2rem;
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, .72);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: var(--space-6);
+      }
+
+      .trip-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .65rem;
+        margin-bottom: var(--space-3);
+      }
+
+      .trip-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: .42rem .8rem;
+        border-radius: var(--radius-pill);
+        background: rgba(255, 255, 255, .72);
+        border: 1px solid rgba(255, 255, 255, .7);
+        font-size: .78rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: #4b5563;
+      }
+
+      .trip-title {
+        font-size: clamp(1.8rem, 2.2vw + 1rem, 2.6rem);
+        line-height: 1.04;
+        margin-bottom: .4rem;
+      }
+
+      .trip-subtitle {
+        font-size: .98rem;
+        color: var(--text-muted);
+        margin-bottom: var(--space-5);
+      }
+
+      /* ── Trip grid: fixed left carousel, scrollable right side ── */
+      .trip-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+        gap: var(--space-5);
+        align-items: start;
+      }
+
+      /* ── Carousel ── */
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, .5);
+        border: 1px solid rgba(255, 255, 255, .55);
+        aspect-ratio: 16 / 9;
+      }
+
+      .carousel-photo {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .carousel-photo.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fade .25s ease;
+      }
+
+      .carousel-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .carousel-caption {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        max-width: 70%;
+        background: rgba(255, 255, 255, .86);
+        padding: .8rem 1rem;
+        border-radius: .85rem;
+        color: #374151;
+        line-height: 1.5;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, .08);
+      }
+
+      .carousel-controls {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        display: flex;
+        gap: .55rem;
+        z-index: 2;
+      }
+
+      .carousel-btn {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .9);
+        color: #166534;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, .08);
+        cursor: pointer;
+        font-size: 1.1rem;
+      }
+
+      @keyframes fade {
+        from { opacity: 0; transform: scale(.99); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      /* ── Trip side panel ── */
+      .trip-side {
+        display: grid;
+        gap: var(--space-4);   /* FIX: was missing semicolon */
+      }
+
+      .trip-side-card {
+        padding: 1.2rem 1.25rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, .56);
+        border: 1px solid rgba(255, 255, 255, .7);
+        color: var(--text-muted);
+        font-size: .96rem;
+        line-height: 1.75;
+        max-height: 500px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+
+      .trip-log-block {
+        display: grid;
+        gap: .5rem;
+      }
+
+      .trip-log-block h3 {
+        font-size: 1.05rem;
+        line-height: 1.3;
+        color: var(--text-main);
+      }
+
+      .trip-log-block h4 {
+        font-size: 1rem;
+        line-height: 1.3;
+        color: var(--text-main);
+        margin-top: .2rem;
+      }
+
+      .trip-log-range,
+      .trip-log-meta {
+        font-size: .82rem;
+        color: var(--text-soft);
+        letter-spacing: .02em;
+      }
+
+      .trip-log-divider {
+        height: 1px;
+        margin: 1.1rem 0;
+        background: rgba(148, 163, 184, .35);
+      }
+
+      /* ── Footer ── */
+      footer {
+        background: #fff;
+        border-top: 1px solid var(--border);
+        margin-top: var(--space-12);
+        padding: var(--space-8) var(--space-4) var(--space-5);
+      }
+
+      .footer-inner {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: 2.1fr repeat(3, minmax(0, 1fr));
+        gap: var(--space-6);
+        align-items: flex-start;
+      }
+
+      .footer-brand-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: .3rem;
+      }
+
+      .footer-brand-text,
+      .footer-item {
+        font-size: .84rem;
+        color: var(--text-muted);
+      }
+
+      .footer-col-title {
+        font-size: .88rem;
+        font-weight: 600;
+        margin-bottom: .6rem;
+      }
+
+      .footer-item {
+        margin-bottom: .35rem;
+      }
+
+      .footer-socials {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        margin-bottom: .35rem;
+      }
+
+      .social-icon-link {
+        width: 28px;
+        height: 28px;
+        border-radius: .5rem;
+        background: #f3f4f6;
+        border: 1px solid var(--border);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+                    border-color var(--transition-fast), background var(--transition-fast);
+      }
+
+      .social-icon-link img {
+        width: 18px;
+        height: 18px;
+      }
+
+      .social-icon-link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, .12);
+        border-color: #bbf7d0;
+        background: #ecfdf3;
+      }
+
+      .footer-resume-link {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        margin-top: .5rem;
+        font-size: .8rem;
+        padding: .5rem .9rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #f9fafb;
+        transition: background var(--transition-fast), border-color var(--transition-fast),
+                    transform var(--transition-fast);
+      }
+
+      .footer-resume-link:hover {
+        background: #ecfdf3;
+        border-color: #bbf7d0;
+        transform: translateY(-1px);
+      }
+
+      .footer-bottom {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        margin-top: var(--space-5);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+        font-size: .74rem;
+        color: var(--text-soft);
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-3);
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .footer-status {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+      }
+
+      .footer-status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #16a34a;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .trip-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-inner {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .site-header {
+          padding-inline: .6rem;
+        }
+        .nav-left {
+          overflow-x: auto;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .nav-left::-webkit-scrollbar {
+          display: none;
+        }
+        .nav-link {
+          padding-inline: .7rem;
+        }
+        .site-title {
+          display: none;
+        }
+        .hero-title {
+          max-width: 10ch;
+        }
+        .footer-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── Header ── -->
+    <div class="site-header-wrap">
+      <header class="site-header">
+        <nav class="nav-left" aria-label="Main navigation">
+          <a href="index.html"       class="nav-link">Home</a>
+          <a href="robotics.html"    class="nav-link">VEX V5 Robotics</a>
+          <a href="engineering.html" class="nav-link">Engineering Projects</a>
+          <a href="outdoors.html"    class="nav-link nav-link-active">Outdoors</a>
+          <a href="piano.html"       class="nav-link">Piano Teaching</a>
+        </nav>
+        <div class="nav-right">
+          <div class="site-title">kirosliforlio</div>
+        </div>
+      </header>
+    </div>
+
+    <!-- ── Hero ── -->
+    <section class="hero" aria-label="Outdoors hero">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <h1 class="hero-title">Welcome to my outdoors page!</h1>
+        <p class="hero-sub">Take a look at all my outdoors content, from photography to trip logs</p>
+      </div>
+    </section>
+
+    <!-- ── Main content ── -->
+    <main class="page-shell">
+      <section class="trip-stack" aria-label="Outdoors trips">
+
+        <!-- ── Trip 01: Mt Shuksan ── -->
+        <!--
+          FIX: Added missing .carousel wrapper div around all .carousel-photo elements.
+          FIX: Unnested photos 2–10 and carousel-controls — they were all incorrectly
+               nested inside the second .carousel-photo instead of being siblings.
+          FIX: Fixed unclosed <div> tag on shuksan2 caption (was <div> instead of </div>).
+          FIX: Restored missing closing tags for .trip-side-card and .trip-side.
+        -->
+        <article class="trip-card">
+          <div class="trip-meta">
+            <span class="trip-tag">Trip 01</span>
+            <span class="trip-tag">North Cascades National Park, Washington, USA</span>
+            <span class="trip-tag">Sulphide Glacier Route</span>
+          </div>
+          <h2 class="trip-title">Mt Shuksan</h2>
+          <p class="trip-subtitle">Located in the North Cascades, Mt. Shuksan stands at an elevation of 2783m and prominence of 1344m</p>
+
+          <div class="trip-grid">
+
+            <div class="carousel">
+              <div class="carousel-photo active">
+                <img src="shuksan1.jpg" alt="Mt Shuksan photo 1">
+                <div class="carousel-caption">Old growth tree on approach hike</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan2.jpg" alt="Mt Shuksan photo 2">
+                <div class="carousel-caption">Epic portrait on the ridge right below camp, daunting view of Mt. Baker</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan3.jpg" alt="Mt Shuksan photo 3">
+                <div class="carousel-caption">View of summit pyramid (far left) and Sulphide Glacier from camp</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan4.jpg" alt="Mt Shuksan photo 4">
+                <div class="carousel-caption">Morning glow on lower glacier, right below rock split section</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan5.jpg" alt="Mt Shuksan photo 5">
+                <div class="carousel-caption">Looking down at lower Sulphide from rock split</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan6.jpg" alt="Mt Shuksan photo 6">
+                <div class="carousel-caption">View of summit pyramid and upper Sulphide Glacier from top of rock split (tiny dots were other climbers!)</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan7.jpg" alt="Mt Shuksan photo 7">
+                <div class="carousel-caption">View of the rugged peaks of the North Cascades from upper Sulphide</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan8.jpg" alt="Mt Shuksan photo 8">
+                <div class="carousel-caption">Looking down from summit pyramid</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan9.jpg" alt="Mt Shuksan photo 9">
+                <div class="carousel-caption">Looking deeper into the park, Glacier Peak barely visible towering over</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="shuksan10.jpg" alt="Mt Shuksan photo 10">
+                <div class="carousel-caption">Scrambling on summit pyramid with Mt. Baker in background</div>
+              </div>
+              <div class="carousel-controls">
+                <button class="carousel-btn carousel-prev" type="button">←</button>
+                <button class="carousel-btn carousel-next" type="button">→</button>
+              </div>
+            </div><!-- /.carousel -->
+
+            <div class="trip-side">
+              <div class="trip-side-card">
+                <div class="trip-log-block">
+                  <h3>Mt. Shuksan — Sulphide Glacier Route</h3>
+                  <p class="trip-log-range">September 19–20, 2025</p>
+                </div>
+
+                <div class="trip-log-block">
+                  <h4>Trailhead → Base Camp</h4>
+                  <p class="trip-log-meta">September 19 | Departed 11:00 AM · Arrived camp 7:00 PM</p>
+                  <p>Hit the Shannon Ridge trailhead just before noon. The trail starts as a well-maintained forest path, climbing gradually through old-growth before opening up onto heather benches and broken slabs higher up. You cross into North Cascades National Park territory on the way up — camp sits right on the other side of that boundary, just below the toe of the Sulphide Glacier at around 6,100 ft.</p>
+                  <p>Camp was completely dry — no snow, just rock and dirt tent pads with wide open views of the North Cascades. A guided group was already set up nearby which made finding the spot easy. Water from the stream, dinner, early night. Big day ahead.</p>
+                </div>
+
+                <div class="trip-log-divider"></div>
+
+                <div class="trip-log-block">
+                  <h4>Camp → Summit → Camp</h4>
+                  <p class="trip-log-meta">September 20 | Departed 7:00 AM · Summited 12:00 PM · Back at camp mid-afternoon</p>
+                  <p>Left camp at 7 with crampons on and the glacier hard and cold. The lower Sulphide is mostly blue ice this late in the season, with open crevasses you route around rather than over. The boot pack from prior parties helped with navigation in the early morning light.</p>
+                  <p>The route's biggest curveball in late September was the glacier split. A prominent rock band cuts across at around 6,500 ft where the lower and upper sections of the Sulphide have pulled completely apart, leaving a loose 3rd class scramble of a couple hundred feet to regain the upper glacier. It added about an hour — not technical, but slow and loose going with a full pack and rope team. Once back on the upper Sulphide the angle steepens toward the base of the summit pyramid.</p>
+                  <p>The summit pyramid is where the route steps up to Class 3/4 — solid rock but real exposure, hands and feet the whole way up the center gully. Rockfall is a genuine concern with multiple parties moving up and down at the same time, so we moved efficiently and kept communication with teams above. Topped out at noon. Baker to the south, the Pickets to the east, the whole North Cascades in every direction.</p>
+                  <p>Descent of the pyramid takes full attention — easier to rush on the way down, and that's when mistakes happen. Back on the glacier the pace picked up and we were at camp by mid-afternoon.</p>
+                </div>
+
+                <div class="trip-log-divider"></div>
+
+                <div class="trip-log-block">
+                  <h4>Camp → Car</h4>
+                  <p class="trip-log-meta">September 20 | Departed mid-afternoon · Arrived trailhead 11:00 PM</p>
+                  <p>Breaking camp on post-summit legs is its own kind of effort. Everything gets stuffed in with less care than it went in with. We were moving by mid-afternoon, aiming to clear the glacier while daylight held.</p>
+                  <p>The descent went fast — downhill on firm ice is efficient if not relaxing. The slab section below the lower glacier is where tired feet start making errors so we kept the pace measured. Back in the trees it was fully dark, headlamps on for the second time that day. The lower forest trail feels a lot longer on the way out than it did going in.</p>
+                  <p>Trailhead at 11:00 PM. Long day. The drive out was quiet.</p>
+                </div>
+              </div><!-- /.trip-side-card -->
+            </div><!-- /.trip-side -->
+
+          </div><!-- /.trip-grid -->
+        </article><!-- /.trip-card Trip 01 -->
+
+        <!-- ── Trip 02: Wedge Mountain ── -->
+        <article class="trip-card">
+          <div class="trip-meta">
+            <span class="trip-tag">Trip 02</span>
+            <span class="trip-tag">Garibaldi Provincial Park, BC, Canada</span>
+            <span class="trip-tag">NE Arête Route</span>
+          </div>
+          <h2 class="trip-title">Wedge Mountain</h2>
+          <p class="trip-subtitle">Standing at 2895m in height and 2249m in prominence, the Wedge is the tallest peak in Garibaldi Provincial Park</p>
+
+          <div class="trip-grid">
+
+            <div class="carousel">
+              <div class="carousel-photo active">
+                <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg" alt="Mt Wedge photo 1">
+                <div class="carousel-caption">Photo 01 description for Mt Wedge.</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cd08612ce49491325408f783c231f99842f90e.jpg" alt="Mt Wedge photo 2">
+                <div class="carousel-caption">Photo 02 description for Mt Wedge.</div>
+              </div>
+              <div class="carousel-photo">
+                <img src="https://pplx-res.cloudinary.com/image/upload/v1742699698/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg" alt="Mt Wedge photo 3">
+                <div class="carousel-caption">Photo 03 description for Mt Wedge.</div>
+              </div>
+              <div class="carousel-controls">
+                <button class="carousel-btn carousel-prev" type="button">←</button>
+                <button class="carousel-btn carousel-next" type="button">→</button>
+              </div>
+            </div><!-- /.carousel -->
+
+            <div class="trip-side">
+              <div class="trip-side-card">
+                <div class="trip-log-block">
+                  <h3>Wedge Mountain — NE Arête</h3>
+                  <p class="trip-log-range">Garibaldi Provincial Park | May 17–18, 2025</p>
+                </div>
+
+                <div class="trip-log-block">
+                  <h4>Trailhead → Wedgemount Lake / Camp</h4>
+                  <p class="trip-log-meta">May 17 | Departed 12:00 PM · Arrived camp 6:00 PM</p>
+                  <p>Got a late start — later than planned, thanks to a detour back into Whistler after someone realized their boots were still at home. New boots from a Whistler shop sorted the problem, but it burned a couple hours and set the tone for what turned into a bit of a character-building trip.</p>
+                  <p>Hit the Wedgemount Lake trailhead just after noon. The trail wastes no time — it's steep and relentless from the start, climbing hard through forest before opening up into the sub-alpine. The upper section is a boulder-strewn slog that can be slippery when wet, and we were moving on tired legs by the time Wedgemount Lake came into view. The lake sits in a stunning glacial cirque, ringed by the Wedge and Armchair Glaciers — one of those spots that makes you forget how much the approach just hurt. The hut at the lakeshore campground was there but we set up tents nearby. Early night, alarm set for 4 AM.</p>
+                </div>
+
+                <div class="trip-log-divider"></div>
+
+                <div class="trip-log-block">
+                  <h4>Camp → Arête Base → High Point (2,500 m) → Camp</h4>
+                  <p class="trip-log-meta">May 18 | Departed 5:00 AM · Reached arête base 8:00 AM · Back at camp 10:00 AM</p>
+                  <p>Up at 4, moving by 5 in the dark. The snow conditions were rough — deep, unconsolidated, and sinky the whole way across the glacier approach. Every step punched through a crust that never quite held, which made for slow, draining progress toward the NE Arête. It's the kind of snow that wears you down quietly.</p>
+                  <p>Reached the base of the arête at 8 AM. The arête itself is the route's crux — exposed ridge climbing that in good conditions is a serious but manageable scramble. That day it wasn't in good conditions. The summit rock above 2,500 m was iced up and far more exposed than what we were comfortable committing to without the right gear for the conditions. We made the call to turn around there. Not the summit, but 2,500 m with honest conditions beats a bad decision higher up.</p>
+                  <p>The glissade back down to camp was the highlight of the morning — what took hours to slog up took minutes to slide down. Back at camp by 10, which left time to eat, rest, and pack up without rushing.</p>
+                </div>
+
+                <div class="trip-log-divider"></div>
+
+                <div class="trip-log-block">
+                  <h4>Camp → Car</h4>
+                  <p class="trip-log-meta">May 18 | Departed ~10:30 AM · Arrived trailhead 5:00 PM</p>
+                  <p>Broke camp and started down. The descent retraced the brutal uphill in reverse — the boulder field felt endless on post-summit legs, but the views back up to Wedgemount Lake on the way out were worth one more look.</p>
+                  <p>Somewhere on the descent, a tent got away from us. Wind, a loose strap, a moment of inattention — it went. One of those small disasters that feels bigger in the moment than it probably is, but still. The rest of the gear made it back intact, and we rolled into the parking lot at 5 PM, tired, tentless, and already talking about coming back to finish the job.</p>
+                </div>
+              </div><!-- /.trip-side-card -->
+            </div><!-- /.trip-side -->
+
+          </div><!-- /.trip-grid -->
+        </article><!-- /.trip-card Trip 02 -->
+
+        <!-- ── Trip 03: Mt Baker ── -->
+        <article class="trip-card">
+          <div class="trip-meta">
+            <span class="trip-tag">Trip 03</span>
+            <span class="trip-tag">North Cascades Range, Washington, USA</span>
+            <span class="trip-tag">Coleman Deming Route</span>
+          </div>
+          <h2 class="trip-title">Mt Baker</h2>
+          <p class="trip-subtitle">A true giant of the PNW, Mt. Baker stands at 3286m in height and 2686m in prominence, making it the third-tallest mountain in Washington</p>
+
+          <div class="trip-grid">
+
+            <div class="carousel">
+              <div class="carousel-photo active">
+                <img src="comingsoon.jpg" alt="Mt Baker photo 1">
+                <div class="carousel-caption">Placeholder!</div>
+              </div>
+              <div class="carousel-controls">
+                <button class="carousel-btn carousel-prev" type="button">←</button>
+                <button class="carousel-btn carousel-next" type="button">→</button>
+              </div>
+            </div><!-- /.carousel -->
+
+            <div class="trip-side">
+              <div class="trip-side-card">Coming Soon!</div>
+            </div><!-- /.trip-side -->
+
+          </div><!-- /.trip-grid -->
+        </article><!-- /.trip-card Trip 03 -->
+
+      </section><!-- /.trip-stack -->
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand-title">kirosliforlio</div>
+          <p class="footer-brand-text">A minimal home for my piano teaching, robotics, outdoors, and projects.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Location</div>
+          <div class="footer-item">Metro Vancouver, BC, Canada</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-item"><a href="mailto:kiros1134@gmail.com">kiros1134@gmail.com</a></div>
+          <div class="footer-item"><a href="tel:+17789600424">778 960 0424</a></div>
+        </div>
+        <div>
+          <div class="footer-col-title">Links</div>
+          <div class="footer-socials">
+            <a class="social-icon-link" href="https://www.linkedin.com/in/kiros-li-8b83b0270" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" loading="lazy">
+            </a>
+            <a class="social-icon-link" href="https://www.instagram.com/kiros.li24" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" loading="lazy">
+            </a>
+          </div>
+          <a href="resume.pdf" class="footer-resume-link" target="_blank" rel="noopener noreferrer">
+            <span>View my resume</span><span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-status">
+          <span class="footer-status-dot" aria-hidden="true"></span>
+          <span>System operational · Outdoors archive online</span>
+        </div>
+        <span><span id="year-span"></span> kirosliforlio</span>
+      </div>
+    </footer>
+
+    <script>
+      // Footer year
+      document.getElementById('year-span').textContent = new Date().getFullYear();
+
+      // Hide/show header on scroll
+      const headerWrap = document.querySelector('.site-header-wrap');
+      let lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const current = window.scrollY;
+        if (!headerWrap) return;
+        const scrollingDown  = current > lastScrollY;
+        const scrolledEnough = current > 80;
+        if (scrollingDown && scrolledEnough) {
+          headerWrap.classList.add('header-hidden');
+        } else if (!scrollingDown) {
+          headerWrap.classList.remove('header-hidden');
+        }
+        lastScrollY = current;
+      });
+
+      // Carousel
+      document.querySelectorAll('.carousel').forEach(carousel => {
+        const photos = carousel.querySelectorAll('.carousel-photo');
+        let current = 0;
+
+        const show = index => {
+          photos.forEach(p => p.classList.remove('active'));
+          photos[index].classList.add('active');
+        };
+
+        carousel.querySelector('.carousel-next').addEventListener('click', () => {
+          current = (current + 1) % photos.length;
+          show(current);
+        });
+
+        carousel.querySelector('.carousel-prev').addEventListener('click', () => {
+          current = (current - 1 + photos.length) % photos.length;
+          show(current);
+        });
+      });
+    </script>
+  </body>
+</html>
