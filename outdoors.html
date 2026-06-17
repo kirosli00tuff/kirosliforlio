@@ -265,17 +265,22 @@
 
       /* ── Carousel ── */
       .carousel {
-        position: relative;
-        overflow: hidden;
         border-radius: 1rem;
         background: rgba(255, 255, 255, .5);
         border: 1px solid rgba(255, 255, 255, .55);
+        overflow: hidden;
+      }
+
+      /* Fixed 16/9 image viewport — nothing overlaps it */
+      .carousel-image-area {
+        position: relative;
+        width: 100%;
         aspect-ratio: 16 / 9;
+        overflow: hidden;
       }
 
       .carousel-photo {
         display: none;
-        position: relative;
         width: 100%;
         height: 100%;
       }
@@ -294,38 +299,47 @@
         display: block;
       }
 
+      /* Bar below the image — caption left, buttons right */
+      .carousel-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+        padding: .7rem 1rem;
+        background: rgba(255, 255, 255, .72);
+        border-top: 1px solid rgba(255, 255, 255, .55);
+        min-height: 52px;
+      }
+
       .carousel-caption {
-        position: absolute;
-        left: 1rem;
-        bottom: 1rem;
-        max-width: 70%;
-        background: rgba(255, 255, 255, .86);
-        padding: .8rem 1rem;
-        border-radius: .85rem;
+        flex: 1;
+        font-size: .84rem;
         color: #374151;
-        line-height: 1.5;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, .08);
+        line-height: 1.45;
       }
 
       .carousel-controls {
-        position: absolute;
-        right: 1rem;
-        bottom: 1rem;
         display: flex;
-        gap: .55rem;
-        z-index: 2;
+        gap: .45rem;
+        flex-shrink: 0;
       }
 
       .carousel-btn {
-        width: 42px;
-        height: 42px;
+        width: 38px;
+        height: 38px;
         border: none;
         border-radius: 999px;
         background: rgba(255, 255, 255, .9);
         color: #166534;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, .08);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, .10);
         cursor: pointer;
-        font-size: 1.1rem;
+        font-size: 1rem;
+        transition: background var(--transition-fast), transform var(--transition-fast);
+      }
+
+      .carousel-btn:hover {
+        background: #ecfdf3;
+        transform: scale(1.08);
       }
 
       @keyframes fade {
@@ -590,50 +604,45 @@
           <div class="trip-grid">
 
             <div class="carousel">
-              <div class="carousel-photo active">
-                <img src="shuksan1.jpg" alt="Mt Shuksan photo 1">
+              <div class="carousel-image-area">
+                <div class="carousel-photo active" data-caption="Old growth tree on approach hike">
+                  <img src="shuksan1.jpg" alt="Mt Shuksan photo 1">
+                </div>
+                <div class="carousel-photo" data-caption="Epic portrait on the ridge right below camp, daunting view of Mt. Baker">
+                  <img src="shuksan2.jpg" alt="Mt Shuksan photo 2">
+                </div>
+                <div class="carousel-photo" data-caption="View of summit pyramid (far left) and Sulphide Glacier from camp">
+                  <img src="shuksan3.JPG" alt="Mt Shuksan photo 3">
+                </div>
+                <div class="carousel-photo" data-caption="Morning glow on lower glacier, right below rock split section">
+                  <img src="shuksan4.JPG" alt="Mt Shuksan photo 4">
+                </div>
+                <div class="carousel-photo" data-caption="Looking down at lower Sulphide from rock split">
+                  <img src="shuksan5.JPG" alt="Mt Shuksan photo 5">
+                </div>
+                <div class="carousel-photo" data-caption="View of summit pyramid and upper Sulphide Glacier from top of rock split (tiny dots were other climbers!)">
+                  <img src="shuksan6.JPG" alt="Mt Shuksan photo 6">
+                </div>
+                <div class="carousel-photo" data-caption="View of the rugged peaks of the North Cascades from upper Sulphide">
+                  <img src="shuksan7.JPG" alt="Mt Shuksan photo 7">
+                </div>
+                <div class="carousel-photo" data-caption="Looking down from summit pyramid">
+                  <img src="shuksan8.JPG" alt="Mt Shuksan photo 8">
+                </div>
+                <div class="carousel-photo" data-caption="Looking deeper into the park, Glacier Peak barely visible towering over">
+                  <img src="shuksan9.JPG" alt="Mt Shuksan photo 9">
+                </div>
+                <div class="carousel-photo" data-caption="Scrambling on summit pyramid with Mt. Baker in background">
+                  <img src="shuksan10.JPG" alt="Mt Shuksan photo 10">
+                </div>
+              </div><!-- /.carousel-image-area -->
+              <div class="carousel-bar">
                 <div class="carousel-caption">Old growth tree on approach hike</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan2.jpg" alt="Mt Shuksan photo 2">
-                <div class="carousel-caption">Epic portrait on the ridge right below camp, daunting view of Mt. Baker</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan3.JPG" alt="Mt Shuksan photo 3">
-                <div class="carousel-caption">View of summit pyramid (far left) and Sulphide Glacier from camp</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan4.JPG" alt="Mt Shuksan photo 4">
-                <div class="carousel-caption">Morning glow on lower glacier, right below rock split section</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan5.JPG" alt="Mt Shuksan photo 5">
-                <div class="carousel-caption">Looking down at lower Sulphide from rock split</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan6.JPG" alt="Mt Shuksan photo 6">
-                <div class="carousel-caption">View of summit pyramid and upper Sulphide Glacier from top of rock split (tiny dots were other climbers!)</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan7.JPG" alt="Mt Shuksan photo 7">
-                <div class="carousel-caption">View of the rugged peaks of the North Cascades from upper Sulphide</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan8.JPG" alt="Mt Shuksan photo 8">
-                <div class="carousel-caption">Looking down from summit pyramid</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan9.JPG" alt="Mt Shuksan photo 9">
-                <div class="carousel-caption">Looking deeper into the park, Glacier Peak barely visible towering over</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="shuksan10.JPG" alt="Mt Shuksan photo 10">
-                <div class="carousel-caption">Scrambling on summit pyramid with Mt. Baker in background</div>
-              </div>
-              <div class="carousel-controls">
-                <button class="carousel-btn carousel-prev" type="button">←</button>
-                <button class="carousel-btn carousel-next" type="button">→</button>
-              </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn carousel-prev" type="button">←</button>
+                  <button class="carousel-btn carousel-next" type="button">→</button>
+                </div>
+              </div><!-- /.carousel-bar -->
             </div><!-- /.carousel -->
 
             <div class="trip-side">
@@ -689,22 +698,24 @@
           <div class="trip-grid">
 
             <div class="carousel">
-              <div class="carousel-photo active">
-                <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg" alt="Mt Wedge photo 1">
+              <div class="carousel-image-area">
+                <div class="carousel-photo active" data-caption="Photo 01 description for Mt Wedge.">
+                  <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/5a035c5982be3dede961e41ca348e190cdccc5e6.jpg" alt="Mt Wedge photo 1">
+                </div>
+                <div class="carousel-photo" data-caption="Photo 02 description for Mt Wedge.">
+                  <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cd08612ce49491325408f783c231f99842f90e.jpg" alt="Mt Wedge photo 2">
+                </div>
+                <div class="carousel-photo" data-caption="Photo 03 description for Mt Wedge.">
+                  <img src="https://pplx-res.cloudinary.com/image/upload/v1742699698/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg" alt="Mt Wedge photo 3">
+                </div>
+              </div><!-- /.carousel-image-area -->
+              <div class="carousel-bar">
                 <div class="carousel-caption">Photo 01 description for Mt Wedge.</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/07cd08612ce49491325408f783c231f99842f90e.jpg" alt="Mt Wedge photo 2">
-                <div class="carousel-caption">Photo 02 description for Mt Wedge.</div>
-              </div>
-              <div class="carousel-photo">
-                <img src="https://pplx-res.cloudinary.com/image/upload/v1742699698/pplx_search_images/19e26a48a31df325f4ed1dd74b6f4da8e01ab53a.jpg" alt="Mt Wedge photo 3">
-                <div class="carousel-caption">Photo 03 description for Mt Wedge.</div>
-              </div>
-              <div class="carousel-controls">
-                <button class="carousel-btn carousel-prev" type="button">←</button>
-                <button class="carousel-btn carousel-next" type="button">→</button>
-              </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn carousel-prev" type="button">←</button>
+                  <button class="carousel-btn carousel-next" type="button">→</button>
+                </div>
+              </div><!-- /.carousel-bar -->
             </div><!-- /.carousel -->
 
             <div class="trip-side">
@@ -758,14 +769,18 @@
           <div class="trip-grid">
 
             <div class="carousel">
-              <div class="carousel-photo active">
-                <img src="comingsoon.jpg" alt="Mt Baker photo 1">
+              <div class="carousel-image-area">
+                <div class="carousel-photo active" data-caption="Placeholder!">
+                  <img src="comingsoon.jpg" alt="Mt Baker photo 1">
+                </div>
+              </div><!-- /.carousel-image-area -->
+              <div class="carousel-bar">
                 <div class="carousel-caption">Placeholder!</div>
-              </div>
-              <div class="carousel-controls">
-                <button class="carousel-btn carousel-prev" type="button">←</button>
-                <button class="carousel-btn carousel-next" type="button">→</button>
-              </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn carousel-prev" type="button">←</button>
+                  <button class="carousel-btn carousel-next" type="button">→</button>
+                </div>
+              </div><!-- /.carousel-bar -->
             </div><!-- /.carousel -->
 
             <div class="trip-side">
@@ -840,12 +855,14 @@
 
       // Carousel
       document.querySelectorAll('.carousel').forEach(carousel => {
-        const photos = carousel.querySelectorAll('.carousel-photo');
+        const photos  = carousel.querySelectorAll('.carousel-photo');
+        const caption = carousel.querySelector('.carousel-caption');
         let current = 0;
 
         const show = index => {
           photos.forEach(p => p.classList.remove('active'));
           photos[index].classList.add('active');
+          if (caption) caption.textContent = photos[index].dataset.caption || '';
         };
 
         carousel.querySelector('.carousel-next').addEventListener('click', () => {
